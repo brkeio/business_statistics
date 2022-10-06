@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 3 仮説検定 | ビジネス統計</title>
+<meta name="author" content="林 高樹">
+<meta name="description" content='3.1 パート1: 平均値の差の検定 # t.test(x, y = NULL, #  alternative = c("two.sided", "less", "greater"), #  mu = 0, paired = FALSE, var.equal = FALSE, #  conf.level = 0.95, ...) # # #  One Sample t-test #...'>
+<meta name="generator" content="bookdown 0.28 with bs4_book()">
+<meta property="og:title" content="Chapter 3 仮説検定 | ビジネス統計">
+<meta property="og:type" content="book">
+<meta property="og:description" content='3.1 パート1: 平均値の差の検定 # t.test(x, y = NULL, #  alternative = c("two.sided", "less", "greater"), #  mu = 0, paired = FALSE, var.equal = FALSE, #  conf.level = 0.95, ...) # # #  One Sample t-test #...'>
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 3 仮説検定 | ビジネス統計">
+<meta name="twitter:description" content='3.1 パート1: 平均値の差の検定 # t.test(x, y = NULL, #  alternative = c("two.sided", "less", "greater"), #  mu = 0, paired = FALSE, var.equal = FALSE, #  conf.level = 0.95, ...) # # #  One Sample t-test #...'>
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">ビジネス統計</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> はじめに</a></li>
+<li><a class="" href="r%E8%A8%80%E8%AA%9E%E3%81%AE%E5%9F%BA%E6%9C%AC.html"><span class="header-section-number">2</span> R言語の基本</a></li>
+<li><a class="active" href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html"><span class="header-section-number">3</span> 仮説検定</a></li>
+<li><a class="" href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html"><span class="header-section-number">4</span> 分散分析</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="仮説検定" class="section level1" number="3">
+<h1>
+<span class="header-section-number">3</span> 仮説検定<a class="anchor" aria-label="anchor" href="#%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A"><i class="fas fa-link"></i></a>
+</h1>
+<div id="パート1-平均値の差の検定" class="section level2" number="3.1">
+<h2>
+<span class="header-section-number">3.1</span> パート1: 平均値の差の検定<a class="anchor" aria-label="anchor" href="#%E3%83%91%E3%83%BC%E3%83%881-%E5%B9%B3%E5%9D%87%E5%80%A4%E3%81%AE%E5%B7%AE%E3%81%AE%E6%A4%9C%E5%AE%9A"><i class="fas fa-link"></i></a>
+</h2>
+<pre><code># t.test(x, y = NULL, 
+#    alternative = c("two.sided", "less", "greater"), 
+#    mu = 0, paired = FALSE, var.equal = FALSE, 
+#    conf.level = 0.95, ...)
+#
+#
+#   One Sample t-test
+# Performs one and two sample t-tests on vectors of data.</code></pre>
+<ul>
+<li>平均値の差の検定 (ペア検定)</li>
+</ul>
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># sleep: Rにデフォルトで収録されているデータ</span></span>
+<span><span class="co"># 睡眠薬の, コントロールに対する睡眠時間の増加分(hrs)</span></span>
+<span><span class="co"># help(sleep)</span></span>
+<span><span class="co"># Data which show the effect of two soporific drugs (increase in hours of sleep compared to control) on 10 patients.</span></span>
+<span><span class="co"># (extra, group, ID) 20件, 患者(ID) 10名</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">sleep</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/r/utils/head.html">tail</a></span><span class="op">(</span><span class="va">sleep</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/attach.html">attach</a></span><span class="op">(</span><span class="va">sleep</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">extra</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">extra</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="BS2022-test_files/figure-html/test1-1.png" width="75%"></div>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co">#t.test(extra)  # &lt;-- ペア検定ではない</span></span>
+<span></span>
+<span><span class="co"># 両側検定</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">extra</span> <span class="op">~</span> <span class="va">group</span>, paired<span class="op">=</span><span class="cn">T</span><span class="op">)</span></span>
+<span><span class="co">#t.test(extra[group == 1], extra[group == 2], paired = TRUE)</span></span>
+<span></span>
+<span><span class="co"># 片側検定</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">extra</span> <span class="op">~</span> <span class="va">group</span>, paired<span class="op">=</span><span class="cn">T</span>, alternative<span class="op">=</span><span class="st">"greater"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">extra</span> <span class="op">~</span> <span class="va">group</span>, paired<span class="op">=</span><span class="cn">T</span>, alternative<span class="op">=</span><span class="st">"less"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span><span class="op">(</span><span class="va">sleep</span><span class="op">)</span>      <span class="co"># bad example</span></span>
+<span><span class="co">#boxplot(extra)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span><span class="op">(</span><span class="va">extra</span><span class="op">~</span><span class="va">group</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="BS2022-test_files/figure-html/test1-2.png" width="75%"></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))</span>
+<span id="cb46-2"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-2" aria-hidden="true" tabindex="-1"></a>  extra group ID</span>
+<span id="cb46-3"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-3" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>   <span class="fl">0.7</span>     <span class="dv">1</span>  <span class="dv">1</span></span>
+<span id="cb46-4"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>  <span class="sc">-</span><span class="fl">1.6</span>     <span class="dv">1</span>  <span class="dv">2</span></span>
+<span id="cb46-5"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-5" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>  <span class="sc">-</span><span class="fl">0.2</span>     <span class="dv">1</span>  <span class="dv">3</span></span>
+<span id="cb46-6"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-6" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span>  <span class="sc">-</span><span class="fl">1.2</span>     <span class="dv">1</span>  <span class="dv">4</span></span>
+<span id="cb46-7"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-7" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span>  <span class="sc">-</span><span class="fl">0.1</span>     <span class="dv">1</span>  <span class="dv">5</span></span>
+<span id="cb46-8"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-8" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span>   <span class="fl">3.4</span>     <span class="dv">1</span>  <span class="dv">6</span></span>
+<span id="cb46-9"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-9" aria-hidden="true" tabindex="-1"></a>   extra group ID</span>
+<span id="cb46-10"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-10" aria-hidden="true" tabindex="-1"></a><span class="dv">15</span>  <span class="sc">-</span><span class="fl">0.1</span>     <span class="dv">2</span>  <span class="dv">5</span></span>
+<span id="cb46-11"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-11" aria-hidden="true" tabindex="-1"></a><span class="dv">16</span>   <span class="fl">4.4</span>     <span class="dv">2</span>  <span class="dv">6</span></span>
+<span id="cb46-12"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-12" aria-hidden="true" tabindex="-1"></a><span class="dv">17</span>   <span class="fl">5.5</span>     <span class="dv">2</span>  <span class="dv">7</span></span>
+<span id="cb46-13"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-13" aria-hidden="true" tabindex="-1"></a><span class="dv">18</span>   <span class="fl">1.6</span>     <span class="dv">2</span>  <span class="dv">8</span></span>
+<span id="cb46-14"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-14" aria-hidden="true" tabindex="-1"></a><span class="dv">19</span>   <span class="fl">4.6</span>     <span class="dv">2</span>  <span class="dv">9</span></span>
+<span id="cb46-15"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-15" aria-hidden="true" tabindex="-1"></a><span class="dv">20</span>   <span class="fl">3.4</span>     <span class="dv">2</span> <span class="dv">10</span></span>
+<span id="cb46-16"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-17"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-17" aria-hidden="true" tabindex="-1"></a>    Paired t<span class="sc">-</span>test</span>
+<span id="cb46-18"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-19"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-19" aria-hidden="true" tabindex="-1"></a>data<span class="sc">:</span>  extra by group</span>
+<span id="cb46-20"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-20" aria-hidden="true" tabindex="-1"></a>t <span class="ot">=</span> <span class="sc">-</span><span class="fl">4.0621</span>, df <span class="ot">=</span> <span class="dv">9</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">0.002833</span></span>
+<span id="cb46-21"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-21" aria-hidden="true" tabindex="-1"></a>alternative hypothesis<span class="sc">:</span> true mean difference is not equal to <span class="dv">0</span></span>
+<span id="cb46-22"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-22" aria-hidden="true" tabindex="-1"></a><span class="dv">95</span> percent confidence interval<span class="sc">:</span></span>
+<span id="cb46-23"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-23" aria-hidden="true" tabindex="-1"></a> <span class="sc">-</span><span class="fl">2.4598858</span> <span class="sc">-</span><span class="fl">0.7001142</span></span>
+<span id="cb46-24"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-24" aria-hidden="true" tabindex="-1"></a>sample estimates<span class="sc">:</span></span>
+<span id="cb46-25"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-25" aria-hidden="true" tabindex="-1"></a>mean difference </span>
+<span id="cb46-26"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-26" aria-hidden="true" tabindex="-1"></a>          <span class="sc">-</span><span class="fl">1.58</span> </span>
+<span id="cb46-27"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-28"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-29"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-29" aria-hidden="true" tabindex="-1"></a>    Paired t<span class="sc">-</span>test</span>
+<span id="cb46-30"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-31"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-31" aria-hidden="true" tabindex="-1"></a>data<span class="sc">:</span>  extra by group</span>
+<span id="cb46-32"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-32" aria-hidden="true" tabindex="-1"></a>t <span class="ot">=</span> <span class="sc">-</span><span class="fl">4.0621</span>, df <span class="ot">=</span> <span class="dv">9</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">0.9986</span></span>
+<span id="cb46-33"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-33" aria-hidden="true" tabindex="-1"></a>alternative hypothesis<span class="sc">:</span> true mean difference is greater than <span class="dv">0</span></span>
+<span id="cb46-34"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-34" aria-hidden="true" tabindex="-1"></a><span class="dv">95</span> percent confidence interval<span class="sc">:</span></span>
+<span id="cb46-35"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-35" aria-hidden="true" tabindex="-1"></a> <span class="sc">-</span><span class="fl">2.293005</span>       <span class="cn">Inf</span></span>
+<span id="cb46-36"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-36" aria-hidden="true" tabindex="-1"></a>sample estimates<span class="sc">:</span></span>
+<span id="cb46-37"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-37" aria-hidden="true" tabindex="-1"></a>mean difference </span>
+<span id="cb46-38"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-38" aria-hidden="true" tabindex="-1"></a>          <span class="sc">-</span><span class="fl">1.58</span> </span>
+<span id="cb46-39"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-40"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-41"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-41" aria-hidden="true" tabindex="-1"></a>    Paired t<span class="sc">-</span>test</span>
+<span id="cb46-42"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-43"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-43" aria-hidden="true" tabindex="-1"></a>data<span class="sc">:</span>  extra by group</span>
+<span id="cb46-44"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-44" aria-hidden="true" tabindex="-1"></a>t <span class="ot">=</span> <span class="sc">-</span><span class="fl">4.0621</span>, df <span class="ot">=</span> <span class="dv">9</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">0.001416</span></span>
+<span id="cb46-45"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-45" aria-hidden="true" tabindex="-1"></a>alternative hypothesis<span class="sc">:</span> true mean difference is less than <span class="dv">0</span></span>
+<span id="cb46-46"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-46" aria-hidden="true" tabindex="-1"></a><span class="dv">95</span> percent confidence interval<span class="sc">:</span></span>
+<span id="cb46-47"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-47" aria-hidden="true" tabindex="-1"></a>       <span class="sc">-</span><span class="cn">Inf</span> <span class="sc">-</span><span class="fl">0.8669947</span></span>
+<span id="cb46-48"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-48" aria-hidden="true" tabindex="-1"></a>sample estimates<span class="sc">:</span></span>
+<span id="cb46-49"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-49" aria-hidden="true" tabindex="-1"></a>mean difference </span>
+<span id="cb46-50"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb46-50" aria-hidden="true" tabindex="-1"></a>          <span class="sc">-</span><span class="fl">1.58</span> </span></code></pre></div>
+<ul>
+<li>平均値の差の検定</li>
+</ul>
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># 口コミサイト(仮想データ)</span></span>
+<span><span class="co"># 2つの業種(A, B), 各20社</span></span>
+<span><span class="co"># 各企業に対する(元)従業員による平均評価点(1--5)</span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.table</a></span><span class="op">(</span><span class="st">"dat_1-1.csv"</span>, sep<span class="op">=</span><span class="st">","</span>, header<span class="op">=</span><span class="cn">T</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="BS2022-test_files/figure-html/test2-1.png" width="75%"></div>
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/attach.html">attach</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">A</span>, <span class="va">B</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">## 正規性の検定</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#ks.test(A, "pnorm"); ks.test(B, "pnorm")       # コルモゴロフ・スミルノフ (Kolmogorov-Smirnov) 検定</span></span>
+<span><span class="co">#shapiro.test(A); shapiro.test(B)   # シャピロ・ウィルク (Shapiro-Wilk) 検定</span></span>
+<span><span class="co">#qqnorm(A); qqnorm(B)   # q-qプロット</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">A</span><span class="op">)</span>; <span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">B</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="BS2022-test_files/figure-html/test2-2.png" width="75%"></div>
+<pre><code>
+    Welch Two Sample t-test
+
+data:  A and B
+t = 2.9406, df = 6.7002, p-value = 0.02281
+alternative hypothesis: true difference in means is not equal to 0
+95 percent confidence interval:
+ 0.6597988 6.3402012
+sample estimates:
+mean of x mean of y 
+      3.5       0.0 </code></pre>
+<ul>
+<li>平均値の差の検定 (ノンパラメトリック検定)
+<ul>
+<li>順位和検定: ノンパラメトリック検定の一手法</li>
+<li>外れ値に対して強い (頑強)</li>
+</ul>
+</li>
+</ul>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co">#wilcox.test(x$A, x$B)</span></span>
+<span id="cb50-2"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="fu">wilcox.test</span>(A, B)</span>
+<span id="cb50-3"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb50-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-4"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb50-4" aria-hidden="true" tabindex="-1"></a>    Wilcoxon rank sum test with continuity correction</span>
+<span id="cb50-5"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb50-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-6"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb50-6" aria-hidden="true" tabindex="-1"></a>data<span class="sc">:</span>  A and B</span>
+<span id="cb50-7"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb50-7" aria-hidden="true" tabindex="-1"></a>W <span class="ot">=</span> <span class="dv">22</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">0.04157</span></span>
+<span id="cb50-8"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb50-8" aria-hidden="true" tabindex="-1"></a>alternative hypothesis<span class="sc">:</span> true location shift is not equal to <span class="dv">0</span></span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># 対応のある場合 (例, 同一企業の職種A, B)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">x</span><span class="op">$</span><span class="va">A</span>, type<span class="op">=</span><span class="st">"l"</span>, ylim<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span><span class="op">(</span><span class="va">x</span><span class="op">$</span><span class="va">B</span>, lty<span class="op">=</span><span class="st">"dotted"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="BS2022-test_files/figure-html/test4-1.png" width="75%"></div>
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">x</span><span class="op">$</span><span class="va">A</span>, col<span class="op">=</span><span class="st">"red"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">x</span><span class="op">$</span><span class="va">B</span>, add<span class="op">=</span><span class="cn">T</span>, col<span class="op">=</span><span class="st">"blue"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="BS2022-test_files/figure-html/test4-2.png" width="75%"></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb53-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-2"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(x<span class="sc">$</span>A, x<span class="sc">$</span>B, <span class="at">paired=</span>T)</span>
+<span id="cb53-3"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb53-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-4"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb53-4" aria-hidden="true" tabindex="-1"></a>    Paired t<span class="sc">-</span>test</span>
+<span id="cb53-5"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb53-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-6"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb53-6" aria-hidden="true" tabindex="-1"></a>data<span class="sc">:</span>  x<span class="sc">$</span>A and x<span class="sc">$</span>B</span>
+<span id="cb53-7"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb53-7" aria-hidden="true" tabindex="-1"></a>t <span class="ot">=</span> <span class="sc">-</span><span class="fl">1.9202</span>, df <span class="ot">=</span> <span class="dv">19</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">0.06997</span></span>
+<span id="cb53-8"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb53-8" aria-hidden="true" tabindex="-1"></a>alternative hypothesis<span class="sc">:</span> true mean difference is not equal to <span class="dv">0</span></span>
+<span id="cb53-9"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb53-9" aria-hidden="true" tabindex="-1"></a><span class="dv">95</span> percent confidence interval<span class="sc">:</span></span>
+<span id="cb53-10"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb53-10" aria-hidden="true" tabindex="-1"></a> <span class="sc">-</span><span class="fl">1.16297946</span>  <span class="fl">0.05007946</span></span>
+<span id="cb53-11"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb53-11" aria-hidden="true" tabindex="-1"></a>sample estimates<span class="sc">:</span></span>
+<span id="cb53-12"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb53-12" aria-hidden="true" tabindex="-1"></a>mean difference </span>
+<span id="cb53-13"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb53-13" aria-hidden="true" tabindex="-1"></a>       <span class="sc">-</span><span class="fl">0.55645</span> </span></code></pre></div>
+</div>
+<div id="パート2-カイ二乗検定" class="section level2" number="3.2">
+<h2>
+<span class="header-section-number">3.2</span> パート2: カイ二乗検定<a class="anchor" aria-label="anchor" href="#%E3%83%91%E3%83%BC%E3%83%882-%E3%82%AB%E3%82%A4%E4%BA%8C%E4%B9%97%E6%A4%9C%E5%AE%9A"><i class="fas fa-link"></i></a>
+</h2>
+<pre><code># chisq.test(x, y = NULL, correct = TRUE, 
+#      p = rep(1/length(x), length(x)), rescale.p = FALSE, simulate.p.value = FALSE, B = 2000)
+# chisq.test performs chi-squared contingency table tests and goodness-of-fit tests.</code></pre>
+<div id="独立性検定" class="section level3" number="3.2.1">
+<h3>
+<span class="header-section-number">3.2.1</span> 独立性検定<a class="anchor" aria-label="anchor" href="#%E7%8B%AC%E7%AB%8B%E6%80%A7%E6%A4%9C%E5%AE%9A"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 演習用データの作成 (実務では, ファイルを読み込む)</span></span>
+<span id="cb55-2"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb55-2" aria-hidden="true" tabindex="-1"></a>d1 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"a1"</span>, <span class="st">"b1"</span>), <span class="dv">76</span>), <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"a1"</span>, <span class="st">"b2"</span>), <span class="dv">15</span>), <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"a1"</span>, <span class="st">"b3"</span>), <span class="dv">41</span>)), <span class="at">byrow=</span>T, <span class="at">ncol=</span><span class="dv">2</span>)</span>
+<span id="cb55-3"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb55-3" aria-hidden="true" tabindex="-1"></a>d2 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"a2"</span>, <span class="st">"b1"</span>), <span class="dv">95</span>), <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"a2"</span>, <span class="st">"b2"</span>), <span class="dv">30</span>), <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"a2"</span>, <span class="st">"b3"</span>), <span class="dv">85</span>)), <span class="at">byrow=</span>T, <span class="at">ncol=</span><span class="dv">2</span>)</span>
+<span id="cb55-4"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb55-4" aria-hidden="true" tabindex="-1"></a>d3 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"a3"</span>, <span class="st">"b1"</span>), <span class="dv">135</span>), <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"a3"</span>, <span class="st">"b2"</span>), <span class="dv">70</span>), <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"a3"</span>, <span class="st">"b3"</span>), <span class="dv">95</span>)), <span class="at">byrow=</span>T, <span class="at">ncol=</span><span class="dv">2</span>)</span>
+<span id="cb55-5"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb55-5" aria-hidden="true" tabindex="-1"></a>d4 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"a4"</span>, <span class="st">"b1"</span>), <span class="dv">69</span>), <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"a4"</span>, <span class="st">"b2"</span>), <span class="dv">10</span>), <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">"a4"</span>, <span class="st">"b3"</span>), <span class="dv">29</span>)), <span class="at">byrow=</span>T, <span class="at">ncol=</span><span class="dv">2</span>)</span>
+<span id="cb55-6"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb55-6" aria-hidden="true" tabindex="-1"></a>data2 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(d1, d2, d3, d4)</span>
+<span id="cb55-7"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb55-7" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(data2) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"B"</span>)      <span class="co"># 商品種類(A), 販売チャネル(B)</span></span>
+<span id="cb55-8"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb55-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-9"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb55-9" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(data2)</span>
+<span id="cb55-10"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb55-10" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(data2)        <span class="co"># marginal totals</span></span>
+<span id="cb55-11"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb55-11" aria-hidden="true" tabindex="-1"></a>(tbl <span class="ot">&lt;-</span> <span class="fu">table</span>(data2[, <span class="dv">1</span>], data2[, <span class="dv">2</span>]))  <span class="co"># contingency table</span></span>
+<span id="cb55-12"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb55-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-13"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb55-13" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(data2[, <span class="st">"A"</span>], data2[, <span class="st">"B"</span>])</span>
+<span id="cb55-14"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb55-14" aria-hidden="true" tabindex="-1"></a><span class="co">#chisq.test(data2[, 1], data2[, 2])</span></span>
+<span id="cb55-15"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb55-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-16"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb55-16" aria-hidden="true" tabindex="-1"></a><span class="co">#または</span></span>
+<span id="cb55-17"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb55-17" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tbl)</span>
+<span id="cb55-18"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb55-18" aria-hidden="true" tabindex="-1"></a>     A    B   </span>
+<span id="cb55-19"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb55-19" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>,] <span class="st">"a1"</span> <span class="st">"b1"</span></span>
+<span id="cb55-20"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb55-20" aria-hidden="true" tabindex="-1"></a>[<span class="dv">2</span>,] <span class="st">"a1"</span> <span class="st">"b1"</span></span>
+<span id="cb55-21"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb55-21" aria-hidden="true" tabindex="-1"></a>[<span class="dv">3</span>,] <span class="st">"a1"</span> <span class="st">"b1"</span></span>
+<span id="cb55-22"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb55-22" aria-hidden="true" tabindex="-1"></a>[<span class="dv">4</span>,] <span class="st">"a1"</span> <span class="st">"b1"</span></span>
+<span id="cb55-23"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb55-23" aria-hidden="true" tabindex="-1"></a>[<span class="dv">5</span>,] <span class="st">"a1"</span> <span class="st">"b1"</span></span>
+<span id="cb55-24"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb55-24" aria-hidden="true" tabindex="-1"></a>[<span class="dv">6</span>,] <span class="st">"a1"</span> <span class="st">"b1"</span></span>
+<span id="cb55-25"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb55-25" aria-hidden="true" tabindex="-1"></a>data2</span>
+<span id="cb55-26"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb55-26" aria-hidden="true" tabindex="-1"></a> a1  a2  a3  a4  b1  b2  b3 </span>
+<span id="cb55-27"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb55-27" aria-hidden="true" tabindex="-1"></a><span class="dv">132</span> <span class="dv">210</span> <span class="dv">300</span> <span class="dv">108</span> <span class="dv">375</span> <span class="dv">125</span> <span class="dv">250</span> </span>
+<span id="cb55-28"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb55-28" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb55-29"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb55-29" aria-hidden="true" tabindex="-1"></a>      b1  b2  b3</span>
+<span id="cb55-30"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb55-30" aria-hidden="true" tabindex="-1"></a>  a1  <span class="dv">76</span>  <span class="dv">15</span>  <span class="dv">41</span></span>
+<span id="cb55-31"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb55-31" aria-hidden="true" tabindex="-1"></a>  a2  <span class="dv">95</span>  <span class="dv">30</span>  <span class="dv">85</span></span>
+<span id="cb55-32"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb55-32" aria-hidden="true" tabindex="-1"></a>  a3 <span class="dv">135</span>  <span class="dv">70</span>  <span class="dv">95</span></span>
+<span id="cb55-33"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb55-33" aria-hidden="true" tabindex="-1"></a>  a4  <span class="dv">69</span>  <span class="dv">10</span>  <span class="dv">29</span></span>
+<span id="cb55-34"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb55-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-35"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb55-35" aria-hidden="true" tabindex="-1"></a>    Pearson<span class="st">'s Chi-squared test</span></span>
+<span id="cb55-36"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb55-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-37"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb55-37" aria-hidden="true" tabindex="-1"></a><span class="st">data:  data2[, "A"] and data2[, "B"]</span></span>
+<span id="cb55-38"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb55-38" aria-hidden="true" tabindex="-1"></a><span class="st">X-squared = 27.661, df = 6, p-value = 0.0001088</span></span>
+<span id="cb55-39"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb55-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-40"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb55-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-41"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb55-41" aria-hidden="true" tabindex="-1"></a><span class="st">    Pearson'</span>s Chi<span class="sc">-</span>squared test</span>
+<span id="cb55-42"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb55-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-43"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb55-43" aria-hidden="true" tabindex="-1"></a>data<span class="sc">:</span>  tbl</span>
+<span id="cb55-44"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb55-44" aria-hidden="true" tabindex="-1"></a>X<span class="sc">-</span>squared <span class="ot">=</span> <span class="fl">27.661</span>, df <span class="ot">=</span> <span class="dv">6</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">0.0001088</span></span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A/Bテスト</span></span>
+<span id="cb56-2"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="co"># サイト導線A/Bとで, コンバージョンへの効果を比較</span></span>
+<span id="cb56-3"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="co">#                       有               無</span></span>
+<span id="cb56-4"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="co">#   サイト導線A  50              131</span></span>
+<span id="cb56-5"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb56-5" aria-hidden="true" tabindex="-1"></a><span class="co">#   サイト導線B  23              35</span></span>
+<span id="cb56-6"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb56-6" aria-hidden="true" tabindex="-1"></a>ABdat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">131</span>, <span class="dv">23</span>, <span class="dv">35</span>), <span class="at">ncol=</span><span class="dv">2</span>, <span class="at">byrow=</span>T)</span>
+<span id="cb56-7"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb56-7" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(ABdat)</span>
+<span id="cb56-8"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb56-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-9"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb56-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 導線Aでコンバージョンしない人が10人増えた</span></span>
+<span id="cb56-10"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb56-10" aria-hidden="true" tabindex="-1"></a><span class="co">#                       有           無</span></span>
+<span id="cb56-11"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb56-11" aria-hidden="true" tabindex="-1"></a><span class="co">#   サイト導線A  50          141</span></span>
+<span id="cb56-12"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb56-12" aria-hidden="true" tabindex="-1"></a><span class="co">#   サイト導線B  23           35</span></span>
+<span id="cb56-13"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb56-13" aria-hidden="true" tabindex="-1"></a>ABdat2 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">141</span>, <span class="dv">23</span>, <span class="dv">35</span>), <span class="at">ncol=</span><span class="dv">2</span>, <span class="at">byrow=</span>T)</span>
+<span id="cb56-14"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb56-14" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(ABdat2)</span>
+<span id="cb56-15"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb56-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-16"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb56-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Fisherの正確確率検定</span></span>
+<span id="cb56-17"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb56-17" aria-hidden="true" tabindex="-1"></a><span class="fu">fisher.test</span>(ABdat2)</span>
+<span id="cb56-18"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb56-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-19"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb56-19" aria-hidden="true" tabindex="-1"></a>    Pearson<span class="st">'s Chi-squared test with Yates'</span> continuity correction</span>
+<span id="cb56-20"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb56-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-21"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb56-21" aria-hidden="true" tabindex="-1"></a>data<span class="sc">:</span>  ABdat</span>
+<span id="cb56-22"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb56-22" aria-hidden="true" tabindex="-1"></a>X<span class="sc">-</span>squared <span class="ot">=</span> <span class="fl">2.4566</span>, df <span class="ot">=</span> <span class="dv">1</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">0.117</span></span>
+<span id="cb56-23"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb56-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-24"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb56-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-25"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb56-25" aria-hidden="true" tabindex="-1"></a>    Pearson<span class="st">'s Chi-squared test with Yates'</span> continuity correction</span>
+<span id="cb56-26"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb56-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-27"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb56-27" aria-hidden="true" tabindex="-1"></a>data<span class="sc">:</span>  ABdat2</span>
+<span id="cb56-28"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb56-28" aria-hidden="true" tabindex="-1"></a>X<span class="sc">-</span>squared <span class="ot">=</span> <span class="fl">3.2764</span>, df <span class="ot">=</span> <span class="dv">1</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">0.07028</span></span>
+<span id="cb56-29"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb56-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-30"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb56-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-31"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb56-31" aria-hidden="true" tabindex="-1"></a>    Fisher<span class="st">'s Exact Test for Count Data</span></span>
+<span id="cb56-32"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb56-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb56-33"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb56-33" aria-hidden="true" tabindex="-1"></a><span class="st">data:  ABdat2</span></span>
+<span id="cb56-34"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb56-34" aria-hidden="true" tabindex="-1"></a><span class="st">p-value = 0.06915</span></span>
+<span id="cb56-35"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb56-35" aria-hidden="true" tabindex="-1"></a><span class="st">alternative hypothesis: true odds ratio is not equal to 1</span></span>
+<span id="cb56-36"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb56-36" aria-hidden="true" tabindex="-1"></a><span class="st">95 percent confidence interval:</span></span>
+<span id="cb56-37"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb56-37" aria-hidden="true" tabindex="-1"></a><span class="st"> 0.2796541 1.0568106</span></span>
+<span id="cb56-38"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb56-38" aria-hidden="true" tabindex="-1"></a><span class="st">sample estimates:</span></span>
+<span id="cb56-39"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb56-39" aria-hidden="true" tabindex="-1"></a><span class="st">odds ratio </span></span>
+<span id="cb56-40"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb56-40" aria-hidden="true" tabindex="-1"></a><span class="st"> 0.5410443 </span></span></code></pre></div>
+</div>
+<div id="適合度検定" class="section level3" number="3.2.2">
+<h3>
+<span class="header-section-number">3.2.2</span> 適合度検定<a class="anchor" aria-label="anchor" href="#%E9%81%A9%E5%90%88%E5%BA%A6%E6%A4%9C%E5%AE%9A"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># メンデルのデータ（エンドウの交雑実験）</span></span>
+<span id="cb57-2"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 種子の特徴(形質), 黄色・丸い, 黄色・しわ, 緑色・丸い, 緑色・しわ</span></span>
+<span id="cb57-3"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb57-3" aria-hidden="true" tabindex="-1"></a>obs<span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">315</span>, <span class="dv">101</span>, <span class="dv">108</span>, <span class="dv">32</span> )     <span class="co"># 観測度数</span></span>
+<span id="cb57-4"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb57-4" aria-hidden="true" tabindex="-1"></a>prob<span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">9</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">1</span>)<span class="sc">/</span><span class="dv">16</span>             <span class="co"># 理論確率分布</span></span>
+<span id="cb57-5"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb57-5" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(obs, <span class="at">p=</span>prob)             <span class="co"># obs と prob を用いたカイ二乗検定 </span></span>
+<span id="cb57-6"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb57-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-7"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb57-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 検算</span></span>
+<span id="cb57-8"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb57-8" aria-hidden="true" tabindex="-1"></a>ex <span class="ot">&lt;-</span> prob <span class="sc">*</span> <span class="fu">sum</span>(obs)</span>
+<span id="cb57-9"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb57-9" aria-hidden="true" tabindex="-1"></a>chisq <span class="ot">&lt;-</span> <span class="fu">sum</span>((obs<span class="sc">-</span>ex)<span class="sc">^</span><span class="dv">2</span><span class="sc">/</span>ex)</span>
+<span id="cb57-10"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb57-10" aria-hidden="true" tabindex="-1"></a>pval <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">-</span><span class="fu">pchisq</span>(chisq, <span class="dv">3</span>)</span>
+<span id="cb57-11"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb57-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-12"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb57-12" aria-hidden="true" tabindex="-1"></a>    Chi<span class="sc">-</span>squared test <span class="cf">for</span> given probabilities</span>
+<span id="cb57-13"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb57-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-14"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb57-14" aria-hidden="true" tabindex="-1"></a>data<span class="sc">:</span>  obs</span>
+<span id="cb57-15"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb57-15" aria-hidden="true" tabindex="-1"></a>X<span class="sc">-</span>squared <span class="ot">=</span> <span class="fl">0.47002</span>, df <span class="ot">=</span> <span class="dv">3</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">0.9254</span></span></code></pre></div>
+</div>
+</div>
+<div id="パート3-事例統計テストデータ" class="section level2" number="3.3">
+<h2>
+<span class="header-section-number">3.3</span> パート3: 事例(統計テストデータ)<a class="anchor" aria-label="anchor" href="#%E3%83%91%E3%83%BC%E3%83%883-%E4%BA%8B%E4%BE%8B%E7%B5%B1%E8%A8%88%E3%83%86%E3%82%B9%E3%83%88%E3%83%87%E3%83%BC%E3%82%BF"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">testdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"BS_stattest.csv"</span>, header<span class="op">=</span><span class="cn">F</span><span class="op">)</span></span>
+<span><span class="co"># year(学年), MF(性別:男性1女性2), AS(文理:文系1その他2理系3), math(数学履修年数), work(勤務年数), stat(統計学経験0-2), MS(経営科学好き嫌い0-3), s4(4級相当得点), s3(3級相当得点), s2(2級相当得点)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">testdat</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"year"</span>, <span class="st">"MF"</span>, <span class="st">"AS"</span>, <span class="st">"math"</span>, <span class="st">"work"</span>, <span class="st">"stat"</span>, <span class="st">"MS"</span>, <span class="st">"s4"</span>, <span class="st">"s3"</span>, <span class="st">"s2"</span><span class="op">)</span></span>
+<span><span class="va">score</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="va">testdat</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"s4"</span>, <span class="st">"s3"</span>, <span class="st">"s2"</span><span class="op">)</span><span class="op">]</span>, <span class="fl">1</span>, <span class="va">sum</span><span class="op">)</span></span>
+<span><span class="va">testdat2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">testdat</span>, <span class="va">score</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># データの要約</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">testdat2</span><span class="op">$</span><span class="va">MF</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">testdat2</span><span class="op">[</span>,<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"MF"</span>,<span class="st">"AS"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">testdat2</span><span class="op">$</span><span class="va">s3</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">testdat2</span><span class="op">$</span><span class="va">score</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/fivenum.html">fivenum</a></span><span class="op">(</span><span class="va">testdat2</span><span class="op">$</span><span class="va">score</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/hist.html">hist</a></span><span class="op">(</span><span class="va">testdat2</span><span class="op">$</span><span class="va">score</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="BS2022-test_files/figure-html/test9-1.png" width="75%"></div>
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span></span>
+<span><span class="co"># 相関係数</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">testdat</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"math"</span>, <span class="st">"s2"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">testdat</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"math"</span>, <span class="st">"s3"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">testdat</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"math"</span>, <span class="st">"s4"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/pairs.html">pairs</a></span><span class="op">(</span><span class="va">testdat</span><span class="op">[</span>, <span class="fl">8</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="BS2022-test_files/figure-html/test9-2.png" width="75%"></div>
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">testdat</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"MS"</span>, <span class="st">"s4"</span>, <span class="st">"s3"</span>, <span class="st">"s2"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">testdat</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"MS"</span>, <span class="st">"math"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># 箱ひげ図</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/attach.html">attach</a></span><span class="op">(</span><span class="va">testdat2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span><span class="op">(</span><span class="va">score</span><span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">MF</span><span class="op">)</span><span class="op">)</span>       <span class="co"># 2-level factor</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span><span class="op">(</span><span class="va">score</span><span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">MS</span><span class="op">)</span><span class="op">)</span>       <span class="co"># 4-level factor</span></span></code></pre></div>
+<div class="inline-figure"><img src="BS2022-test_files/figure-html/test9-3.png" width="75%"></div>
+<pre><code>
+ 1  2 
+29  8 
+   AS
+MF   1  2  3
+  1 17  3  9
+  2  4  1  3
+
+ 3  4  5  6  7  8  9 
+ 3  2  5 10  5 10  2 
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  10.00   16.00   18.00   17.97   20.00   24.00 
+[1] 10 16 18 20 24
+           math         s2
+math 1.00000000 0.04241976
+s2   0.04241976 1.00000000
+          math        s3
+math 1.0000000 0.2481946
+s3   0.2481946 1.0000000
+          math        s4
+math 1.0000000 0.3205779
+s4   0.3205779 1.0000000
+          MS        s4        s3        s2
+MS 1.0000000 0.2592955 0.4922877 0.2600562
+s4 0.2592955 1.0000000 0.1315443 0.1245631
+s3 0.4922877 0.1315443 1.0000000 0.6435060
+s2 0.2600562 0.1245631 0.6435060 1.0000000
+            MS      math
+MS   1.0000000 0.2864297
+math 0.2864297 1.0000000</code></pre>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 平均値の差の検定</span></span>
+<span id="cb63-2"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-2" aria-hidden="true" tabindex="-1"></a>score.MF <span class="ot">&lt;-</span> <span class="fu">split</span>(score, <span class="fu">factor</span>(MF))</span>
+<span id="cb63-3"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-3" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(score.MF<span class="sc">$</span><span class="st">'1'</span>, score.MF<span class="sc">$</span><span class="st">'2'</span>)</span>
+<span id="cb63-4"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-5"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-5" aria-hidden="true" tabindex="-1"></a>score2 <span class="ot">&lt;-</span> testdat[, <span class="st">"s2"</span>]</span>
+<span id="cb63-6"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-6" aria-hidden="true" tabindex="-1"></a>score3 <span class="ot">&lt;-</span> testdat[, <span class="st">"s3"</span>]</span>
+<span id="cb63-7"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-7" aria-hidden="true" tabindex="-1"></a>score4 <span class="ot">&lt;-</span> testdat[, <span class="st">"s4"</span>]</span>
+<span id="cb63-8"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-8" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(score4, score3, <span class="at">paired=</span>T, <span class="at">alternative=</span><span class="st">"greater"</span>)</span>
+<span id="cb63-9"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-9" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(score3, score2, <span class="at">paired=</span>T, <span class="at">alternative=</span><span class="st">"greater"</span>)</span>
+<span id="cb63-10"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-11"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-11" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">mean</span>(score3<span class="sc">-</span>score2)</span>
+<span id="cb63-12"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-12" aria-hidden="true" tabindex="-1"></a>v <span class="ot">&lt;-</span> <span class="fu">var</span>(score3<span class="sc">-</span>score2)</span>
+<span id="cb63-13"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-13" aria-hidden="true" tabindex="-1"></a>tt <span class="ot">&lt;-</span> m<span class="sc">/</span><span class="fu">sqrt</span>(v<span class="sc">/</span>(<span class="fu">length</span>(score3)))</span>
+<span id="cb63-14"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-15"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-15" aria-hidden="true" tabindex="-1"></a>    Welch Two Sample t<span class="sc">-</span>test</span>
+<span id="cb63-16"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-17"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-17" aria-hidden="true" tabindex="-1"></a>data<span class="sc">:</span>  score.MF<span class="sc">$</span><span class="st">"1"</span> and score.MF<span class="sc">$</span><span class="st">"2"</span></span>
+<span id="cb63-18"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-18" aria-hidden="true" tabindex="-1"></a>t <span class="ot">=</span> <span class="fl">2.8923</span>, df <span class="ot">=</span> <span class="fl">13.276</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">0.01237</span></span>
+<span id="cb63-19"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-19" aria-hidden="true" tabindex="-1"></a>alternative hypothesis<span class="sc">:</span> true difference <span class="cf">in</span> means is not equal to <span class="dv">0</span></span>
+<span id="cb63-20"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-20" aria-hidden="true" tabindex="-1"></a><span class="dv">95</span> percent confidence interval<span class="sc">:</span></span>
+<span id="cb63-21"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-21" aria-hidden="true" tabindex="-1"></a> <span class="fl">0.884667</span> <span class="fl">6.063609</span></span>
+<span id="cb63-22"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-22" aria-hidden="true" tabindex="-1"></a>sample estimates<span class="sc">:</span></span>
+<span id="cb63-23"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-23" aria-hidden="true" tabindex="-1"></a>mean of x mean of y </span>
+<span id="cb63-24"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-24" aria-hidden="true" tabindex="-1"></a> <span class="fl">18.72414</span>  <span class="fl">15.25000</span> </span>
+<span id="cb63-25"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-26"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-27"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-27" aria-hidden="true" tabindex="-1"></a>    Paired t<span class="sc">-</span>test</span>
+<span id="cb63-28"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-29"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-29" aria-hidden="true" tabindex="-1"></a>data<span class="sc">:</span>  score4 and score3</span>
+<span id="cb63-30"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-30" aria-hidden="true" tabindex="-1"></a>t <span class="ot">=</span> <span class="fl">0.87426</span>, df <span class="ot">=</span> <span class="dv">36</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">0.1939</span></span>
+<span id="cb63-31"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-31" aria-hidden="true" tabindex="-1"></a>alternative hypothesis<span class="sc">:</span> true mean difference is greater than <span class="dv">0</span></span>
+<span id="cb63-32"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-32" aria-hidden="true" tabindex="-1"></a><span class="dv">95</span> percent confidence interval<span class="sc">:</span></span>
+<span id="cb63-33"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-33" aria-hidden="true" tabindex="-1"></a> <span class="sc">-</span><span class="fl">0.2516528</span>        <span class="cn">Inf</span></span>
+<span id="cb63-34"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-34" aria-hidden="true" tabindex="-1"></a>sample estimates<span class="sc">:</span></span>
+<span id="cb63-35"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-35" aria-hidden="true" tabindex="-1"></a>mean difference </span>
+<span id="cb63-36"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-36" aria-hidden="true" tabindex="-1"></a>      <span class="fl">0.2702703</span> </span>
+<span id="cb63-37"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-38"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-39"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-39" aria-hidden="true" tabindex="-1"></a>    Paired t<span class="sc">-</span>test</span>
+<span id="cb63-40"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-41"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-41" aria-hidden="true" tabindex="-1"></a>data<span class="sc">:</span>  score3 and score2</span>
+<span id="cb63-42"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-42" aria-hidden="true" tabindex="-1"></a>t <span class="ot">=</span> <span class="fl">5.305</span>, df <span class="ot">=</span> <span class="dv">36</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">2.95e-06</span></span>
+<span id="cb63-43"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-43" aria-hidden="true" tabindex="-1"></a>alternative hypothesis<span class="sc">:</span> true mean difference is greater than <span class="dv">0</span></span>
+<span id="cb63-44"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-44" aria-hidden="true" tabindex="-1"></a><span class="dv">95</span> percent confidence interval<span class="sc">:</span></span>
+<span id="cb63-45"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-45" aria-hidden="true" tabindex="-1"></a> <span class="fl">0.9212852</span>       <span class="cn">Inf</span></span>
+<span id="cb63-46"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-46" aria-hidden="true" tabindex="-1"></a>sample estimates<span class="sc">:</span></span>
+<span id="cb63-47"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-47" aria-hidden="true" tabindex="-1"></a>mean difference </span>
+<span id="cb63-48"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb63-48" aria-hidden="true" tabindex="-1"></a>       <span class="fl">1.351351</span> </span></code></pre></div>
+<pre><code># var.test(x, y, ratio = 1, 
+#     alternative = c("two.sided", "less", "greater"), 
+#     conf.level = 0.95, ...)
+# Performs an F test to compare the variances of two samples from normal populations.</code></pre>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var.test</span>(score3, score2)        <span class="co"># equal variance</span></span>
+<span id="cb65-2"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb65-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-3"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb65-3" aria-hidden="true" tabindex="-1"></a>aaa <span class="ot">&lt;-</span> <span class="fu">table</span>(testdat[, <span class="fu">c</span>(<span class="st">"MF"</span>, <span class="st">"AS"</span>)])</span>
+<span id="cb65-4"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb65-4" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(aaa)</span>
+<span id="cb65-5"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb65-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-6"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb65-6" aria-hidden="true" tabindex="-1"></a>aaa <span class="ot">&lt;-</span> <span class="fu">table</span>(testdat[, <span class="fu">c</span>(<span class="st">"MS"</span>, <span class="st">"AS"</span>)])</span>
+<span id="cb65-7"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb65-7" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(aaa)</span>
+<span id="cb65-8"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb65-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-9"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb65-9" aria-hidden="true" tabindex="-1"></a>    F test to compare two variances</span>
+<span id="cb65-10"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb65-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-11"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb65-11" aria-hidden="true" tabindex="-1"></a>data<span class="sc">:</span>  score3 and score2</span>
+<span id="cb65-12"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb65-12" aria-hidden="true" tabindex="-1"></a>F <span class="ot">=</span> <span class="fl">0.71328</span>, num df <span class="ot">=</span> <span class="dv">36</span>, denom df <span class="ot">=</span> <span class="dv">36</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">0.3152</span></span>
+<span id="cb65-13"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb65-13" aria-hidden="true" tabindex="-1"></a>alternative hypothesis<span class="sc">:</span> true ratio of variances is not equal to <span class="dv">1</span></span>
+<span id="cb65-14"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb65-14" aria-hidden="true" tabindex="-1"></a><span class="dv">95</span> percent confidence interval<span class="sc">:</span></span>
+<span id="cb65-15"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb65-15" aria-hidden="true" tabindex="-1"></a> <span class="fl">0.3672687</span> <span class="fl">1.3852696</span></span>
+<span id="cb65-16"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb65-16" aria-hidden="true" tabindex="-1"></a>sample estimates<span class="sc">:</span></span>
+<span id="cb65-17"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb65-17" aria-hidden="true" tabindex="-1"></a>ratio of variances </span>
+<span id="cb65-18"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb65-18" aria-hidden="true" tabindex="-1"></a>         <span class="fl">0.7132785</span> </span>
+<span id="cb65-19"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb65-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-20"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb65-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-21"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb65-21" aria-hidden="true" tabindex="-1"></a>    Pearson<span class="st">'s Chi-squared test</span></span>
+<span id="cb65-22"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb65-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-23"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb65-23" aria-hidden="true" tabindex="-1"></a><span class="st">data:  aaa</span></span>
+<span id="cb65-24"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb65-24" aria-hidden="true" tabindex="-1"></a><span class="st">X-squared = 0.18986, df = 2, p-value = 0.9094</span></span>
+<span id="cb65-25"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb65-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-26"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb65-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-27"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb65-27" aria-hidden="true" tabindex="-1"></a><span class="st">    Pearson'</span>s Chi<span class="sc">-</span>squared test</span>
+<span id="cb65-28"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb65-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-29"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb65-29" aria-hidden="true" tabindex="-1"></a>data<span class="sc">:</span>  aaa</span>
+<span id="cb65-30"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html#cb65-30" aria-hidden="true" tabindex="-1"></a>X<span class="sc">-</span>squared <span class="ot">=</span> <span class="fl">16.044</span>, df <span class="ot">=</span> <span class="dv">6</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">0.01352</span></span></code></pre></div>
+
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="r%E8%A8%80%E8%AA%9E%E3%81%AE%E5%9F%BA%E6%9C%AC.html"><span class="header-section-number">2</span> R言語の基本</a></div>
+<div class="next"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html"><span class="header-section-number">4</span> 分散分析</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A"><span class="header-section-number">3</span> 仮説検定</a></li>
+<li><a class="nav-link" href="#%E3%83%91%E3%83%BC%E3%83%881-%E5%B9%B3%E5%9D%87%E5%80%A4%E3%81%AE%E5%B7%AE%E3%81%AE%E6%A4%9C%E5%AE%9A"><span class="header-section-number">3.1</span> パート1: 平均値の差の検定</a></li>
+<li>
+<a class="nav-link" href="#%E3%83%91%E3%83%BC%E3%83%882-%E3%82%AB%E3%82%A4%E4%BA%8C%E4%B9%97%E6%A4%9C%E5%AE%9A"><span class="header-section-number">3.2</span> パート2: カイ二乗検定</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#%E7%8B%AC%E7%AB%8B%E6%80%A7%E6%A4%9C%E5%AE%9A"><span class="header-section-number">3.2.1</span> 独立性検定</a></li>
+<li><a class="nav-link" href="#%E9%81%A9%E5%90%88%E5%BA%A6%E6%A4%9C%E5%AE%9A"><span class="header-section-number">3.2.2</span> 適合度検定</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#%E3%83%91%E3%83%BC%E3%83%883-%E4%BA%8B%E4%BE%8B%E7%B5%B1%E8%A8%88%E3%83%86%E3%82%B9%E3%83%88%E3%83%87%E3%83%BC%E3%82%BF"><span class="header-section-number">3.3</span> パート3: 事例(統計テストデータ)</a></li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>ビジネス統計</strong>" was written by 林 高樹. It was last built on 2022-09-17.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

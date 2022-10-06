@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 4 分散分析 | ビジネス統計</title>
+<meta name="author" content="林 高樹">
+<meta name="description" content="4.1 分散分析 (基本編)  4.1.1 分散分析とは (導入)  4.1.1.1 はじめに データのバラツキの原因はどこから来るのか? 単なる偶然か: サンプリング誤差（確率的変動） それとも 構造的な要因か データのバラツキは, 分散を使って表現する. いまデータを\((x_1,x_2,\cdots,x_n)\) と書く. データの持つ全変動 (バラツキの大きさ)...">
+<meta name="generator" content="bookdown 0.28 with bs4_book()">
+<meta property="og:title" content="Chapter 4 分散分析 | ビジネス統計">
+<meta property="og:type" content="book">
+<meta property="og:description" content="4.1 分散分析 (基本編)  4.1.1 分散分析とは (導入)  4.1.1.1 はじめに データのバラツキの原因はどこから来るのか? 単なる偶然か: サンプリング誤差（確率的変動） それとも 構造的な要因か データのバラツキは, 分散を使って表現する. いまデータを\((x_1,x_2,\cdots,x_n)\) と書く. データの持つ全変動 (バラツキの大きさ)...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 4 分散分析 | ビジネス統計">
+<meta name="twitter:description" content="4.1 分散分析 (基本編)  4.1.1 分散分析とは (導入)  4.1.1.1 はじめに データのバラツキの原因はどこから来るのか? 単なる偶然か: サンプリング誤差（確率的変動） それとも 構造的な要因か データのバラツキは, 分散を使って表現する. いまデータを\((x_1,x_2,\cdots,x_n)\) と書く. データの持つ全変動 (バラツキの大きさ)...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.0/transition.js"></script><script src="libs/bs3compat-0.4.0/tabs.js"></script><script src="libs/bs3compat-0.4.0/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">ビジネス統計</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> はじめに</a></li>
+<li><a class="" href="r%E8%A8%80%E8%AA%9E%E3%81%AE%E5%9F%BA%E6%9C%AC.html"><span class="header-section-number">2</span> R言語の基本</a></li>
+<li><a class="" href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html"><span class="header-section-number">3</span> 仮説検定</a></li>
+<li><a class="active" href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html"><span class="header-section-number">4</span> 分散分析</a></li>
+</ul>
+
+        <div class="book-extra">
+          
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="分散分析" class="section level1" number="4">
+<h1>
+<span class="header-section-number">4</span> 分散分析<a class="anchor" aria-label="anchor" href="#%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90"><i class="fas fa-link"></i></a>
+</h1>
+<!--
+着手: 2020-08-24, 修正: 2020-08-25
+
+## 編集メモ (8/27/22)
+
+(8/27/22) 以下, 8/25/20時点での「分散分析」パワポ資料に基づいて作成
+→ 最新のものに内容を更新する必要有!
+
+(8/25/22のメモ内容)
+- 南條(2018)の削除. 直交表の削除により, ページ数減
+- 実践編, R Markdown@R Studio使用. 日本語対応? Typoraに戻れるか? (要確認) 実践編のみ, Rコード使い, RStudioでR Markdown化し, 後日, 統合?
+- 理論編, LyX文書を移植, 文章書き込み. 別文書として作成が文書管理上ベター? (後で結合・統合OK)
+  - 数式は(一旦utf-8に変換後), nkf -w ./anova_FDS_051320_new.tex | pandoc -f latex -t markdown -o ./anova_FDS_051320_new.md
+- LyX/TeXの表の埋め込み方法?
+  - 今のところ, 手で作成? (サーチのこと)
+  - Or, screenshotで画像貼り付け (後での修正が面倒)
+- <font color="red">R実践編, データセット作成 & RStudio実行 & RMarkdown作成</font>
+-->
+<hr>
+<div id="分散分析-基本編" class="section level2" number="4.1">
+<h2>
+<span class="header-section-number">4.1</span> 分散分析 (基本編)<a class="anchor" aria-label="anchor" href="#%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90-%E5%9F%BA%E6%9C%AC%E7%B7%A8"><i class="fas fa-link"></i></a>
+</h2>
+<div id="分散分析とは-導入" class="section level3" number="4.1.1">
+<h3>
+<span class="header-section-number">4.1.1</span> 分散分析とは (導入)<a class="anchor" aria-label="anchor" href="#%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90%E3%81%A8%E3%81%AF-%E5%B0%8E%E5%85%A5"><i class="fas fa-link"></i></a>
+</h3>
+<div id="はじめに-1" class="section level4" number="4.1.1.1">
+<h4>
+<span class="header-section-number">4.1.1.1</span> はじめに<a class="anchor" aria-label="anchor" href="#%E3%81%AF%E3%81%98%E3%82%81%E3%81%AB-1"><i class="fas fa-link"></i></a>
+</h4>
+<p>データのバラツキの原因はどこから来るのか?</p>
+<ul>
+<li>単なる偶然か: サンプリング誤差（確率的変動）</li>
+</ul>
+<p>それとも</p>
+<ul>
+<li><p>構造的な要因か</p></li>
+<li><p>データのバラツキは, 分散を使って表現する.</p></li>
+</ul>
+<p>いまデータを<span class="math inline">\((x_1,x_2,\cdots,x_n)\)</span> と書く. データの持つ全変動 (バラツキの大きさ) <span class="math inline">\(S_{xx}\)</span>をその平均値<span class="math inline">\(\bar{x}=\frac{1}{n}\sum_{i=1}^n x_i\)</span>からの偏差<span class="math inline">\((x_i-\bar{x})\)</span>の平方和, すなわち,
+<span class="math display">\[
+S_{xx}=\sum_{i=1}^n (x_i - \bar{x})^2
+\]</span>
+で評価する. <span class="math inline">\(S_{xx}\)</span>は (標本分散) <span class="math inline">\(\times\)</span> (データ個数)に他ならない.</p>
+</div>
+<div id="分散分析-anova-のアイデア" class="section level4" number="4.1.1.2">
+<h4>
+<span class="header-section-number">4.1.1.2</span> 分散分析 (ANOVA) のアイデア<a class="anchor" aria-label="anchor" href="#%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90-anova-%E3%81%AE%E3%82%A2%E3%82%A4%E3%83%87%E3%82%A2"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li><p>全変動を要因別に分解する</p></li>
+<li><p>アイデア</p></li>
+</ul>
+<p>データに含まれるグループ属性を使用</p>
+<p>全変動＝グループ間変動＋グループ内変動</p>
+<p>に分解する</p>
+<div class="inline-figure"><img src="/Users/takaki/Library/CloudStorage/GoogleDrive-tkkhayashi@gmail.com/%E3%83%9E%E3%82%A4%E3%83%88%E3%82%99%E3%83%A9%E3%82%A4%E3%83%95%E3%82%99/Rproj/BS_bookdown/pic/anova_fig-1.png" style="zoom:67%;"></div>
+<div class="inline-figure"><img src="/Users/takaki/Library/CloudStorage/GoogleDrive-tkkhayashi@gmail.com/%E3%83%9E%E3%82%A4%E3%83%88%E3%82%99%E3%83%A9%E3%82%A4%E3%83%95%E3%82%99/Rproj/BS_bookdown/pic/anova_fig-2.png" style="zoom:67%;"></div>
+</div>
+<div id="分散分析の方法論のエッセンス" class="section level4" number="4.1.1.3">
+<h4>
+<span class="header-section-number">4.1.1.3</span> 分散分析の方法論のエッセンス<a class="anchor" aria-label="anchor" href="#%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90%E3%81%AE%E6%96%B9%E6%B3%95%E8%AB%96%E3%81%AE%E3%82%A8%E3%83%83%E3%82%BB%E3%83%B3%E3%82%B9"><i class="fas fa-link"></i></a>
+</h4>
+<p>•全変動を分解する</p>
+<p>–全変動＝グループ間変動＋グループ内変動</p>
+<p>•各要素の変動の大きさを比較する</p>
+<p>・各変動をデータ１個当りに換算（平均変動）</p>
+<p>–A=(データ1個相当)グループ間変動</p>
+<p>–B=(データ1個相当)グループ内変動</p>
+<p>•AがBに比べ“十分に”大きい　⇒グループ差有</p>
+<p>さもなくば　⇒　グループ差無</p>
+<hr>
+</div>
+</div>
+<div id="分散分析とは-解説" class="section level3" number="4.1.2">
+<h3>
+<span class="header-section-number">4.1.2</span> 分散分析とは (解説)<a class="anchor" aria-label="anchor" href="#%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90%E3%81%A8%E3%81%AF-%E8%A7%A3%E8%AA%AC"><i class="fas fa-link"></i></a>
+</h3>
+<div id="分散分析の目的" class="section level4" number="4.1.2.1">
+<h4>
+<span class="header-section-number">4.1.2.1</span> 分散分析の目的<a class="anchor" aria-label="anchor" href="#%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90%E3%81%AE%E7%9B%AE%E7%9A%84"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li><p>質的変数が量的変数に影響を及ぼすか否かの評価</p></li>
+<li><p>3群以上の平均値の差の検定</p></li>
+<li><p>回帰モデルの評価, 特に特定の変数の選択の評価</p></li>
+<li><p>実験計画法/コンジョイント分析により採取されたデータの分析</p></li>
+</ul>
+<p>・回帰分析と併用されることが多い(??)</p>
+<p>・ビジネスにおける施策の効果の有無の測定に応用可能</p>
+<p>・現代の(古典的な)統計学・多変量解析の手法の共通の考え方が含まれているため, 理解することが重要・有用</p>
+<!--
+・反応変数(被説明変数)が量的変数, 予測変数(説明変数)が質的変数であるような回帰分析の一種(?):
+
+・質的変数が量的変数に影響を及ぼすか否かを調べる ←（但し, 効果の大きさや方向性は見ない）
+
+・実験計画法と一緒に発展
+
+◯3群以上の平均値の差の検定（をしたい）
+
+◯回帰モデルを評価する方法の一つ
+
+・統計学大学院の1年次に必ず学ぶ重要な手法. 統計学以外では殆ど知られてない
+
+・回帰分析はモデルを作り, 分散分析はそれらを評価する1手法, R Cookbook, p.268）
+-->
+<ul>
+<li>実験計画法と共に発展</li>
+</ul>
+<p>– 少ない観測で, 母集団に関する最大の情報を引き出す実験デザイン?</p>
+<ul>
+<li>統計学者 Sir Ronald Aylmer Fisher, ロザムステッド (Rothamsted) 農業試験場</li>
+</ul>
+<p>–『Statistical Methods for Research Workers（研究者のための統計学的方法）』他</p>
+<ul>
+<li>実験研究, 観察研究</li>
+</ul>
+<p>– 実験では, 乱塊法(randomized blocking)等, 出力データの変動を制御</p>
+<ul>
+<li><p>(分散の分析（analysis of variance）と言うより) <strong>平均の変動の分析</strong>（analysis of variations in means)</p></li>
+<li><p>水準(level)を変えた処置(treatment)に対する反応(response)に関して, 処置グループ(群)間の平均値の差の有無を<strong>検定</strong></p></li>
+</ul>
+<p>– ANOVA帰無仮説: グループ間の差無し</p>
+<p>※ 応用上より重要なのは, 反応の平均値の差(効果)の<strong>推定</strong> <strong>←</strong> <strong>回帰分析</strong></p>
+</div>
+<div id="モデルの形" class="section level4" number="4.1.2.2">
+<h4>
+<span class="header-section-number">4.1.2.2</span> モデルの形<a class="anchor" aria-label="anchor" href="#%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E5%BD%A2"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li><p>Y変数＝反応変数（測定値・観測値）←量的変数</p></li>
+<li><p>X変数＝因子(要因) ← 質的変数（カテゴリー変数)</p></li>
+<li><p>測定値の変動を説明する因子を見出す</p></li>
+</ul>
+<p>– 2つ以上の水準(level)を持つ因子(factor)により, 反応変数のバラツキを説明させたい</p>
+<p>– モデル</p>
+<p><strong>Y変数の値</strong> <strong>=</strong> (平均値+) <strong>因子による効果</strong> <strong>+</strong> <strong>誤差</strong> (正規分布)</p>
+<p><strong>Y変数の変動＝群間変動 (因子による変動)＋群内変動 (誤差による変動)</strong></p>
+<div class="inline-figure"><img src="/Users/takaki/Library/CloudStorage/GoogleDrive-tkkhayashi@gmail.com/%E3%83%9E%E3%82%A4%E3%83%88%E3%82%99%E3%83%A9%E3%82%A4%E3%83%95%E3%82%99/Rproj/BS_bookdown/pic/anova_fig-3.png" style="zoom:50%;"></div>
+</div>
+<div id="分散分析の主な要素" class="section level4" number="4.1.2.3">
+<h4>
+<span class="header-section-number">4.1.2.3</span> 分散分析の主な要素<a class="anchor" aria-label="anchor" href="#%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90%E3%81%AE%E4%B8%BB%E3%81%AA%E8%A6%81%E7%B4%A0"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li>“実験”の因子として設定した因子の数</li>
+</ul>
+<p>– 1元配置（One-way）, 2元配置（Two-way), …</p>
+<p>-「対応」「繰り返し(repetition)」の有無</p>
+<p>– 同一対象からの(繰り返し)データ採取</p>
+<p>-「反復 (replication)」の有無</p>
+<p>–同一条件下, 独立なデータ採取</p>
+<p>※しばしば, 「繰り返し」「反復」は, 混同して使用される</p>
+<ul>
+<li>固定因子 vs 変量因子</li>
+</ul>
+<p>–有限個の条件(水準)の中から選んだ因子(群や条件など)</p>
+<p>–無数の条件(水準)の中から確率的に選ばれた要因（例, 被験者）</p>
+<ul>
+<li>交絡因子</li>
+</ul>
+<p>–調査したい因子以外で, 結果に影響を与える第3の因子</p>
+<p>例, 飲酒者 vs 非飲酒者 ⇒ 飲酒者の肺癌発生率が高い（喫煙＝交絡因子）</p>
+<!--
+http://support.minitab.com/en-us/minitab/17/topic-library/modeling-statistics/doe/basics/replicates-and-repeats-in-designed-experiments/
+
+Repeat and replicate measurements are both multiple response measurements taken at the same combination of factor settings; but repeat measurements are taken during the same experimental run or consecutive runs, while replicate measurements are taken during identical but different experimental runs, which are often randomized.
+
+
+「繰り返しのある」は, 誤用, 混乱が, web上で見られるので回避
+
+**交絡因子**
+
+交絡（こうらく, 英: Confounding）は, **統計**モデルの中の従属変数と独立変数の両方に（肯定的または否定的に）相関する外部変数が存在すること. そのような外部変数
+-->
+<p><a href="http://monge.tec.fukuoka-u.ac.jp/r_analysis/test_anova01.html">有用</a></p>
+<blockquote>
+<p><a href="http://software.ssri.co.jp/statweb2/column/column0805.html" class="uri">http://software.ssri.co.jp/statweb2/column/column0805.html</a></p>
+<p>1919年, フィッシャーは, ピアソンからゴールトン生物測定研究室の主任統計学者としての採用の申し出を受けましたが, ピアソンに反発していたフィッシャーは申し出を断り, ロンドン郊外にあるロザムステッド農事試験場の研究員になりました. 1933年にピアソンの後任としてロンドン大学の優生学の教授になるまで, この農事試験場で研究を続け, その研究成果が「実験計画法」としてまとめられて1935年に出版されました.</p>
+</blockquote>
+<p>==&gt;&gt;&gt;&gt;数値例の更新&lt;&lt;&lt;&lt;==</p>
+</div>
+<div id="元配置分散分析-対応無の例" class="section level4" number="4.1.2.4">
+<h4>
+<span class="header-section-number">4.1.2.4</span> 1元配置分散分析 (「対応無」の例）<a class="anchor" aria-label="anchor" href="#%E5%85%83%E9%85%8D%E7%BD%AE%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90-%E5%AF%BE%E5%BF%9C%E7%84%A1%E3%81%AE%E4%BE%8B"><i class="fas fa-link"></i></a>
+</h4>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th>サンプルNo.</th>
+<th>因子A (統計学テスト)</th>
+<th></th>
+<th></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td>水準 A (初級)</td>
+<td>水準 B (中級)</td>
+<td>水準 C (上級)</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>8</td>
+<td>7</td>
+<td>6</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>7</td>
+<td>5</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>9</td>
+<td>4</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>6</td>
+<td></td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>8</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p>==&gt;&gt;&gt;&gt;Rコードを挿入??&lt;&lt;&lt;&lt;==</p>
+<p>&gt; summary ( aov ( y ~ a ) )</p>
+<p># aは因子, yは従属変数</p>
+<p># ノンパラメトリック版： Kruskal-Wallis検定（順位を使用）</p>
+<p>&gt; kruskal.test ( y〜a )</p>
+<!--RK (012318): 以下, 少し細か過ぎる??-->
+<!--ランダム効果と, ブロック化, 対応ありの関係-->
+<!--https://www.jstage.jst.go.jp/article/weed/56/1/56_1_24/_pdf-->
+<!--ブロックを主効果として加えることで, ブロック間差を誤差εから分離する.-->
+<!--à-->
+<!--ブロックを主効果としえ加えた以外は, 完全無作為化法と同じである(推定係数は).-->
+<!--…-->
+<!--ブロックの効果を考慮すると, 誤差の自由度と平方和が減るので, 各要因のF値は-->
+<!--変化する (どのように変化するかはブロック数とデータ次第である).-->
+<!--http://monge.tec.fukuoka-u.ac.jp/r_analysis/test_anova01.html-->
+<!--基礎8科目分析, subjectは, 8水準因子!!-->
+<!--Score ~ subject (+ sex)-->
+</div>
+<div id="元配置分散分析-対応有の例" class="section level4" number="4.1.2.5">
+<h4>
+<span class="header-section-number">4.1.2.5</span> 1元配置分散分析 (「対応有」の例）<a class="anchor" aria-label="anchor" href="#%E5%85%83%E9%85%8D%E7%BD%AE%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90-%E5%AF%BE%E5%BF%9C%E6%9C%89%E3%81%AE%E4%BE%8B"><i class="fas fa-link"></i></a>
+</h4>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th>サンプルNo.</th>
+<th>因子A (統計学テスト)</th>
+<th></th>
+<th></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td>水準 A (初級)</td>
+<td>水準 B (中級)</td>
+<td>水準 C (上級)</td>
+</tr>
+<tr class="even">
+<td>1 (鈴木)</td>
+<td>8</td>
+<td>7</td>
+<td>6</td>
+</tr>
+<tr class="odd">
+<td>2 (山田)</td>
+<td>7</td>
+<td>5</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td>3 (田中)</td>
+<td>9</td>
+<td>4</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>4 (清水)</td>
+<td>6</td>
+<td>4</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>5 (小林)</td>
+<td>8</td>
+<td>6</td>
+<td>5</td>
+</tr>
+</tbody>
+</table></div>
+<p># Rによる実行例, 山田他(2008), p.176〜, 参照</p>
+<p># aは因子, yは従属変数, tは被験者因子</p>
+<p>&gt; summary ( aov ( y ~ a + <strong>t</strong>, data=x ) )</p>
+<p># 「対応なし」の2元配置分散分析(交差項なし)と同じ記述で可</p>
+</div>
+<div id="元配置分散分析-2因子とも対応無の例1" class="section level4" number="4.1.2.6">
+<h4>
+<span class="header-section-number">4.1.2.6</span> 2元配置分散分析 (「2因子とも対応無」の例1）<a class="anchor" aria-label="anchor" href="#%E5%85%83%E9%85%8D%E7%BD%AE%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90-2%E5%9B%A0%E5%AD%90%E3%81%A8%E3%82%82%E5%AF%BE%E5%BF%9C%E7%84%A1%E3%81%AE%E4%BE%8B1"><i class="fas fa-link"></i></a>
+</h4>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th><strong>収穫量</strong></th>
+<th></th>
+<th>因子B (肥料)</th>
+<th></th>
+<th></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+<td>B1</td>
+<td>B2</td>
+<td>B3</td>
+</tr>
+<tr class="even">
+<td>因子A (品種)</td>
+<td>A1</td>
+<td>8</td>
+<td>7</td>
+<td>6</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>A2</td>
+<td>7</td>
+<td>5</td>
+<td>2</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>A3</td>
+<td>6</td>
+<td>4</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>A4</td>
+<td>8</td>
+<td>6</td>
+<td>5</td>
+</tr>
+</tbody>
+</table></div>
+<p>&gt; summary(aov(y ~ a+b))</p>
+<p># aとbは因子, yは従属変数</p>
+<!--http://www.gen-info.osaka-u.ac.jp/testdocs/tomocom/bunsan.html-->
+<!--ひとつの条件に対する測定値がすべて１つである場合のことです.-->
+<!--例：以下の表のようなデータがあるとき, 「４種の飼料間で体重増加に差があるかどうか, また３種の系統ごとで体重増加に差があるかどうか」を調べる.-->
+</div>
+<div id="元配置分散分析-2因子とも対応無の例2" class="section level4" number="4.1.2.7">
+<h4>
+<span class="header-section-number">4.1.2.7</span> 2元配置分散分析 (「2因子とも対応無」の例2）<a class="anchor" aria-label="anchor" href="#%E5%85%83%E9%85%8D%E7%BD%AE%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90-2%E5%9B%A0%E5%AD%90%E3%81%A8%E3%82%82%E5%AF%BE%E5%BF%9C%E7%84%A1%E3%81%AE%E4%BE%8B2"><i class="fas fa-link"></i></a>
+</h4>
+<div class="inline-table"><table class="table table-sm">
+<thead><tr class="header">
+<th><strong>収穫量</strong></th>
+<th></th>
+<th>因子B (肥料)</th>
+<th></th>
+<th></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td></td>
+<td></td>
+<td>B1</td>
+<td>B2</td>
+<td>B3</td>
+</tr>
+<tr class="even">
+<td>因子A (品種）</td>
+<td>A1</td>
+<td>8, 7</td>
+<td>7, 5</td>
+<td>6, 3</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>A2</td>
+<td>7, 6</td>
+<td>5, 5</td>
+<td>2, 3</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>A3</td>
+<td>6, 6</td>
+<td>4, 5</td>
+<td>3, 4</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>A4</td>
+<td>8, 6</td>
+<td>6, 7</td>
+<td>5, 5</td>
+</tr>
+</tbody>
+</table></div>
+<p>&gt; summary(aov(y ~ a+b))</p>
+<p># 交互作用効果(interaction effects)を確認</p>
+<p>&gt; iinteraction.plot(a,b,y)</p>
+<p># aは横軸に取る因子, bは線で表す因子, yは従属変数(縦軸)</p>
+<p>&gt; summary(aov(y ~ a*b))</p>
+<!--http://www.gen-info.osaka-u.ac.jp/testdocs/tomocom/bunsan.html-->
+<!--例：年齢, 投薬期間（月）ごとにそれぞれ別々に３人ずつ計４８人の被験者の投薬後２４時間後の血中濃度を測定したとき, 「年齢と投薬期間が血中濃度に関係しているかどうか」を調べる.-->
+<!--http://aoki2.si.gunma-u.ac.jp/lecture/TwoWayANOVA/TwoWay2.html-->
+<!--「年齢と季節がホルモンの分泌量と関係するかどうかについて，年齢階級および各季節ごとにそれぞれ別々に 3 人ずつ，計 60 人の被検者のホルモン分泌量-->
+</div>
+<div id="元配置分散分析-2因子とも対応有の例" class="section level4" number="4.1.2.8">
+<h4>
+<span class="header-section-number">4.1.2.8</span> 2元配置分散分析 (「2因子とも対応有」の例）<a class="anchor" aria-label="anchor" href="#%E5%85%83%E9%85%8D%E7%BD%AE%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90-2%E5%9B%A0%E5%AD%90%E3%81%A8%E3%82%82%E5%AF%BE%E5%BF%9C%E6%9C%89%E3%81%AE%E4%BE%8B"><i class="fas fa-link"></i></a>
+</h4>
+<div class="inline-table"><table class="table table-sm">
+<colgroup>
+<col width="13%">
+<col width="24%">
+<col width="10%">
+<col width="10%">
+<col width="17%">
+<col width="10%">
+<col width="10%">
+</colgroup>
+<thead><tr class="header">
+<th></th>
+<th>水準<strong>A1(商品1）</strong>
+</th>
+<th></th>
+<th></th>
+<th>水準A2(商品2)</th>
+<th></th>
+<th></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><strong>評価者</strong></td>
+<td>B1(低温)</td>
+<td>B2(中温)</td>
+<td>B3(高温)</td>
+<td>B1(低温)</td>
+<td>B2(中温)</td>
+<td>B3(高温)</td>
+</tr>
+<tr class="even">
+<td>1(鈴木)</td>
+<td>5</td>
+<td>4</td>
+<td>5</td>
+<td>3</td>
+<td>4</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td>2(山田)</td>
+<td>1</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>5</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td>3(田中)</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>5</td>
+<td>4</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td>4(清水)</td>
+<td>2</td>
+<td>4</td>
+<td>4</td>
+<td>3</td>
+<td>3</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td>5(小林)</td>
+<td>1</td>
+<td>3</td>
+<td>2</td>
+<td>2</td>
+<td>1</td>
+<td>3</td>
+</tr>
+</tbody>
+</table></div>
+<p>「2要因被験者内計画」</p>
+<p># Rによる実行例, 山田他(2008), p.192〜, 参照</p>
+<p># aとbは因子, yは従属変数, tは被験者因子</p>
+<blockquote>
+<p>summary(aov(y ~ a*b+Error(t+t:a+t:b+t: a:b))</p>
+</blockquote>
+<!--http://www.geisya.or.jp/~mwm48961/statistics/anova_quest2.htm-->
+<!--http://ynomura.dip.jp/archives/2012/01/19.html-->
+<!--有用, http://lang.sist.chukyo-u.ac.jp/classes/R/Rstatistics-07.html-->
+</div>
+<div id="元配置分散分析-1因子のみ対応有の例" class="section level4" number="4.1.2.9">
+<h4>
+<span class="header-section-number">4.1.2.9</span> 2元配置分散分析 (「1因子のみ対応有」の例）<a class="anchor" aria-label="anchor" href="#%E5%85%83%E9%85%8D%E7%BD%AE%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90-1%E5%9B%A0%E5%AD%90%E3%81%AE%E3%81%BF%E5%AF%BE%E5%BF%9C%E6%9C%89%E3%81%AE%E4%BE%8B"><i class="fas fa-link"></i></a>
+</h4>
+<div class="inline-table"><table style="width:100%;" class="table table-sm">
+<colgroup>
+<col width="12%">
+<col width="16%">
+<col width="10%">
+<col width="10%">
+<col width="12%">
+<col width="16%">
+<col width="10%">
+<col width="10%">
+</colgroup>
+<thead><tr class="header">
+<th></th>
+<th>水準A1(商品1)</th>
+<th></th>
+<th></th>
+<th></th>
+<th>水準A2(商品2)</th>
+<th></th>
+<th></th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td><strong>評価者</strong></td>
+<td>B1(低温)</td>
+<td>B2(中温)</td>
+<td>B3(高温)</td>
+<td><strong>評価者</strong></td>
+<td>B1(低温)</td>
+<td>B2(中温)</td>
+<td>B3(高温)</td>
+</tr>
+<tr class="even">
+<td>1(鈴木)</td>
+<td>5</td>
+<td>4</td>
+<td>5</td>
+<td>1(渡邊)</td>
+<td>3</td>
+<td>4</td>
+<td>4</td>
+</tr>
+<tr class="odd">
+<td>2(山田)</td>
+<td>1</td>
+<td>3</td>
+<td>4</td>
+<td>2(高橋)</td>
+<td>5</td>
+<td>5</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td>3(田中)</td>
+<td>3</td>
+<td>4</td>
+<td>5</td>
+<td>3(齊藤)</td>
+<td>5</td>
+<td>4</td>
+<td>3</td>
+</tr>
+<tr class="odd">
+<td>4(清水)</td>
+<td>2</td>
+<td>4</td>
+<td>4</td>
+<td>4(河野)</td>
+<td>3</td>
+<td>3</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<td>5(小林)</td>
+<td>1</td>
+<td>3</td>
+<td>2</td>
+<td>5(井上)</td>
+<td>2</td>
+<td>1</td>
+<td>3</td>
+</tr>
+</tbody>
+</table></div>
+<p>「2要因混合計画」</p>
+<p># Rによる実行例, 山田他(2008), p.195〜, 参照</p>
+<p># aとbは因子, yは従属変数, tは被験者因子</p>
+<p>&gt; summary(aov(y ~ a*b+Error(t:a+t: a:b))</p>
+</div>
+<div id="データのレイアウト" class="section level4" number="4.1.2.10">
+<h4>
+<span class="header-section-number">4.1.2.10</span> データのレイアウト<a class="anchor" aria-label="anchor" href="#%E3%83%87%E3%83%BC%E3%82%BF%E3%81%AE%E3%83%AC%E3%82%A4%E3%82%A2%E3%82%A6%E3%83%88"><i class="fas fa-link"></i></a>
+</h4>
+<p>アンスタック形式 vs スタック形式 ==&gt;&gt;(不要?)&lt;&lt;==</p>
+<div class="inline-figure"><img src="/Users/takaki/Library/CloudStorage/GoogleDrive-tkkhayashi@gmail.com/%E3%83%9E%E3%82%A4%E3%83%88%E3%82%99%E3%83%A9%E3%82%A4%E3%83%95%E3%82%99/Rproj/BS_bookdown/pic/anova_fig-10.png" style="zoom:67%;"></div>
+<!--http://lang.sist.chukyo-u.ac.jp/classes/R/Rstatistics-07.html-->
+<p>解説するならRコードの中で. 但し, dplyr使うなら不要</p>
+<p>&gt; str() ・・・データの形式確認</p>
+<p># oneway.test()使用前, 一旦, スタック形式に変換する</p>
+<p>&gt;stack(<em>dataset</em>名, select=◯◯)</p>
+<p># unstack(<em>dataset</em>名, □〜△)</p>
+<p># 代替的アプローチの例</p>
+<p># ライブラリ’tidyr’内</p>
+<p># gather(), spread()の利用</p>
+<!--RK (052120)-->
+<!--\# 参考: 代替的アプローチ例 (各インデックスの組合せが)-->
+<!--\> library(tidyr)-->
+<!--\> gather(*dataset*名, key=水準を並べる新列名, value=計測値を並べる新変数名)) # 横長 → 縦長-->
+<!--\> spread(*dataset*名, key=水準に使用する列名, value=計測値に使用する列名) # 縦長 → 横長 (各行がユニークなkeyの組合せ)-->
+<!--http://monge.tec.fukuoka-u.ac.jp/r_analysis/sample1_anova01_InsectSprays.html-->
+<!--多重比較の例-->
+<!--多重比較の帰無仮説は二群間の平均値には差が無い-->
+<!--**「対応なし・標本数が同じ」****場合の**-->
+<!--**テューキー****(****Tukey****)****の方法****,** **ボンフェローニ****(Bonferroni)****法****,** **Holm****法****, H****シェフェの方法****(****Scheffe's** **test)**-->
+</div>
+<div id="分散分析に使われるr関数群" class="section level4" number="4.1.2.11">
+<h4>
+<span class="header-section-number">4.1.2.11</span> 分散分析に使われるR関数群<a class="anchor" aria-label="anchor" href="#%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90%E3%81%AB%E4%BD%BF%E3%82%8F%E3%82%8C%E3%82%8Br%E9%96%A2%E6%95%B0%E7%BE%A4"><i class="fas fa-link"></i></a>
+</h4>
+<p>山田他(2008), 表7.10, pp.199-200より一部抽出</p>
+<hr>
+</div>
+</div>
+</div>
+<div id="分散分析-r実習編-作業中" class="section level2" number="4.2">
+<h2>
+<span class="header-section-number">4.2</span> 分散分析 (R実習編) ### 作業中<a class="anchor" aria-label="anchor" href="#%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90-r%E5%AE%9F%E7%BF%92%E7%B7%A8-%E4%BD%9C%E6%A5%AD%E4%B8%AD"><i class="fas fa-link"></i></a>
+</h2>
+<p>==R Markdown/ R Studioで編集する==</p>
+<ul>
+<li>1因子anova例</li>
+<li>FDSの日次株価. 曜日効果(水曜日?), 1月効果</li>
+<li>2因子anova例.</li>
+<li>例1. 徐さんdataset. 売上~ブランド(3つ位)×カテゴリ()</li>
+<li>1因子, 2因子</li>
+<li>かつ, ブランドごとに売れ筋の違いがあるか? 交互作用効果を見る</li>
+<li>例2. 人工データ. 売上=猫派・犬派・その他 x 年代(30代, 40代, 50代)</li>
+</ul>
+<hr>
+</div>
+<div id="まとめ-発展的内容-今後の学習" class="section level2" number="4.3">
+<h2>
+<span class="header-section-number">4.3</span> まとめ (発展的内容, 今後の学習)<a class="anchor" aria-label="anchor" href="#%E3%81%BE%E3%81%A8%E3%82%81-%E7%99%BA%E5%B1%95%E7%9A%84%E5%86%85%E5%AE%B9-%E4%BB%8A%E5%BE%8C%E3%81%AE%E5%AD%A6%E7%BF%92"><i class="fas fa-link"></i></a>
+</h2>
+<hr>
+</div>
+<div id="補足" class="section level2" number="4.4">
+<h2>
+<span class="header-section-number">4.4</span> 補足<a class="anchor" aria-label="anchor" href="#%E8%A3%9C%E8%B6%B3"><i class="fas fa-link"></i></a>
+</h2>
+<div id="実験配置の決め方" class="section level4" number="4.4.0.1">
+<h4>
+<span class="header-section-number">4.4.0.1</span> 実験配置の決め方*<a class="anchor" aria-label="anchor" href="#%E5%AE%9F%E9%A8%93%E9%85%8D%E7%BD%AE%E3%81%AE%E6%B1%BA%E3%82%81%E6%96%B9"><i class="fas fa-link"></i></a>
+</h4>
+<p>“フィーシャーの3原則”</p>
+<ul>
+<li>
+<p>反復 (replication)</p>
+<p>– できるだけ, 3回以上</p>
+<p>–反復がないと, 処置の効果 vs 偶然か区別不能</p>
+</li>
+<li>
+<p>無作為化 (randomization)</p>
+<p>– 処置条件をランダムに割り当て</p>
+<p>– バイアスの混入防止</p>
+</li>
+<li>
+<p>局所管理 (local control)</p>
+<p>– ブロック化する</p>
+<p>– 処置として操作する以外の実験条件が均一でない場合(日照, 土壌条件, 作業員能力), 均一な大きさに分割</p>
+</li>
+</ul>
+</div>
+<div id="直交配列実験" class="section level4" number="4.4.0.2">
+<h4>
+<span class="header-section-number">4.4.0.2</span> 直交配列実験*<a class="anchor" aria-label="anchor" href="#%E7%9B%B4%E4%BA%A4%E9%85%8D%E5%88%97%E5%AE%9F%E9%A8%93"><i class="fas fa-link"></i></a>
+</h4>
+<ul>
+<li>直交表: 多元配置において全ての組合せでなく, 最小限の実験回数に抑える方法</li>
+</ul>
+<p>– 2水準系(L4, L8, …), 3水準系 (L9, L27, …), 混合系(L18, …)</p>
+<p>– 行: 実験ID (コンジョイントカード), 列: 因子 (商品属性)</p>
+<p>– 複数の因子(列)の水準を同時に操作</p>
+<ul>
+<li>任意の2つの列間で，全ての水準の組合せが同数回ずつ出現させる</li>
+</ul>
+<p>– 全ての列において, 各列内に出現する水準の数が同じ(釣り合い/バランス).</p>
+<p>– 2列間の“相関”がゼロ(直交)</p>
+<ul>
+<li>各因子の主効果が求められる.</li>
+</ul>
+<p>農業試験, 品質管理, コンジョイント分析, 等</p>
+<!--
+L4, L8など, 挿入 (012819)
+L = levels
+ラテン方陣??
+*n* 行 *n* 列の表に *n* 個の異なる記号を, 各記号が各行および各列に1回だけ現れるように並べたもの
+(数独)
+注：以降の, one-way, two-way表における, 行列, と意味が異なることに注意!!
+http://monoist.atmarkit.co.jp/mn/articles/0812/02/news124_2.html
+http://www.jasst.jp/archives/jasst08k/pdf/C3-1.pdf
+https://kqerg.jimdo.com/ホーム/直交表/
+実験の水準の組合わせにおいて.任意の2つの因子の水準の組合わせが同数回現れるようなわりつけを定めた表. **以下****の３つの条件を満たす**
+
+**1.****釣合**い:全ての列において, 各列ごとの出現する水準の数が同じになっている状態
+**2.****直交****:**どの２列の相関係数もゼロとなっている状態
+**3.****自由度**：(行数-1)>各列の自由度の合計
+直交表には,2水準系,3水準系などの他,L12,L18,L36などの混合系直交表があるが, パラメータ設計には混合型を用いることが多い.
+このL18直交表を用いると2水準が1因子と3水準が7因子までを調査できる総当たり実験を行うとすると4,374通りとなってしまうのが, たった18回の実験で調査できる.
+しかし**直交実験は実験数の削減が主目的で****はない****.**
+もし, **交互****作用が無いとわかって****いるなら****,** １因子実験をサンプル1個で繰り返せば, ほぼ同じ実験数で済んで最適条件が求まるはずである.
+https://www.monodukuri.com/gihou/article/72
+https://geechs-magazine.com/tag/lifehack/20161004_1
+<img src="/Users/takaki/Box/Writing_active/BStat_writing/anova/anova_fig-4.png" style="zoom:67%;" />
+
+出所: https://bellcurve.jp/statistics/glossary/2205.html
+http://lab.sdm.keio.ac.jp/ogi/shibaura/ed11-1220.pdf
+-->
+<!--
+各 2 水準の 4 つの因子 A,B,C,D を取り上げた実験を行う. 各因子間の交互作用はないとする.
+
+4 元配置の要因実験では, 全ての水準組合せ 2×2×2×2=16 回の実験が必要. 直交表を用いることで 8 回の実験を行う.
+1) 直交表の任意の 4 本の列に, A,B,C,D を対応させる
+
+(例)1 列A, 2 列B, 3 列C，7 列D
+2) 直交表中の数字 1,2 を, その列に対応された因子の水準とする
+
+(例)実験 1:A1B1C1D1, 実験 2:A1B1C1D2, ..., 実験 8:A2B2C1D2 3) 2)で決まった 8 つの水準組合せについてランダムに実験を行う
+
+(問題)
+各 2 水準の 4 つの因子 A,B,C,D を取り上げた実験を行う. 交互作用 A×B が存在するとする.
+
+1 列にA, 2 列にB, 3 列にC，7 列にDを割り当てる AB の影響について調べる
+D1 の実験:A1B1, A1B2, A2B1, A2B2
+D2 の実験:A1B1, A1B2, A2B1, A2B2
+
+D1, D2 の比較では AB の影響は平等である
+C1 の実験:A1B1, A1B1, A2B2, A2B2
+C2 の実験:A1B2, A1B2, A2B1, A2B1
+C1, C2 の比較では AB の影響は平等ではない
+→ C1,C2 の比較を行うとA×Bの効果が入ってしまう
+-->
+<!--
+#### コンジョイント分析例 ==>>>更新 or 除去<<<==
+
+<img src="/Users/takaki/Box/Writing_active/BStat_writing/anova/anova_fig-5.png" style="zoom:67%;" />
+
+
+南條(2018),
+分散分析は, 実行していない. Lm()は実行
+
+直交表
+どの2列をとっても, その[水準](https://ja.wikipedia.org/wiki/実験計画法)のすべての組み合わせが同数回現れる[配列](https://ja.wikipedia.org/wiki/配列)のことである. これを「その2列はバランスしている」あるいは「[直交](https://ja.wikipedia.org/wiki/直交)している」と呼ぶ. この性質を使って, [実験計](https://ja.wikipedia.org/wiki/実験計画法)[画法](https://ja.wikipedia.org/wiki/実験計画法)において[因子](https://ja.wikipedia.org/wiki/因子分析)と水準の割り付け表に用いられる.-->
+<!--一般的な[多元配置](https://ja.wikipedia.org/wiki/実験計画法)の[実験](https://ja.wikipedia.org/wiki/実験)では, 一つの因子のみを変化させた条件で行うため, 膨大な数の実験を行わなければならない. 直交表で割り付けた実験は, 複数の因子を変化させるが, どの因子・水準の組み合わせも同回数だけ実験するようにし, その因子の主効果を求められる. 最小限の実験数に抑えられるという利点がある. 直交表を用いる実験は, [交互](https://ja.wikipedia.org/wiki/相互作用)[作用](https://ja.wikipedia.org/wiki/相互作用)に重きをおかず, 主効果のみの実験を行う目的の場合に適する.
+
+<img src="/Users/takaki/Box/Writing_active/BStat_writing/anova/anova_fig-6.png" style="zoom:67%;" />
+
+<img src="/Users/takaki/Box/Writing_active/BStat_writing/anova/anova_fig-7.png" style="zoom:67%;" />
+
+<img src="/Users/takaki/Box/Writing_active/BStat_writing/anova/anova_fig-8.png" style="zoom:67%;" />
+
+<img src="/Users/takaki/Box/Writing_active/BStat_writing/anova/anova_fig-9.png" style="zoom:67%;" />
+
+
+出所: 南條秀典(2018)「化粧品会社の経営戦略評価と技術戦略を通じた消費者支払意思額増加のための研究」 慶應義塾大学経営管理研究科修士論文.
+-->
+
+</div>
+</div>
+<div id="分散分析-実習" class="section level2" number="4.5">
+<h2>
+<span class="header-section-number">4.5</span> 分散分析 (実習)<a class="anchor" aria-label="anchor" href="#%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90-%E5%AE%9F%E7%BF%92"><i class="fas fa-link"></i></a>
+</h2>
+<div id="データ1-2業種口コミサイト仮想データ" class="section level3" number="4.5.1">
+<h3>
+<span class="header-section-number">4.5.1</span> データ1: 2業種口コミサイト(仮想データ)<a class="anchor" aria-label="anchor" href="#%E3%83%87%E3%83%BC%E3%82%BF1-2%E6%A5%AD%E7%A8%AE%E5%8F%A3%E3%82%B3%E3%83%9F%E3%82%B5%E3%82%A4%E3%83%88%E4%BB%AE%E6%83%B3%E3%83%87%E3%83%BC%E3%82%BF"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>データの読み込み, 並べ替え</li>
+</ul>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb66-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"dat_1-1.csv"</span>)</span>
+<span id="cb66-2"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 口コミサイト(仮想データ)</span></span>
+<span id="cb66-3"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb66-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 2つの業種(A, B), 各20社</span></span>
+<span id="cb66-4"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb66-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 各企業に対する(元)従業員による平均評価点(1--5)</span></span>
+<span id="cb66-5"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb66-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(x)</span>
+<span id="cb66-6"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb66-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-7"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb66-7" aria-hidden="true" tabindex="-1"></a><span class="co"># xの並べ替え(横型→縦型)</span></span>
+<span id="cb66-8"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb66-8" aria-hidden="true" tabindex="-1"></a>xvec <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(<span class="fu">as.matrix</span>(x)) <span class="co"># xをベクトル化</span></span>
+<span id="cb66-9"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb66-9" aria-hidden="true" tabindex="-1"></a>yvec <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">"A"</span>, <span class="dv">20</span>), <span class="fu">rep</span>(<span class="st">"B"</span>, <span class="dv">20</span>))</span>
+<span id="cb66-10"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb66-10" aria-hidden="true" tabindex="-1"></a>xdf <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">score =</span> xvec, <span class="at">type =</span> yvec)</span>
+<span id="cb66-11"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb66-11" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(xdf)</span>
+<span id="cb66-12"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb66-12" aria-hidden="true" tabindex="-1"></a>xdf<span class="sc">$</span>score; xdf[, <span class="st">"score"</span>]; xdf[, <span class="dv">1</span>]</span>
+<span id="cb66-13"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb66-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-14"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb66-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 代替的方法</span></span>
+<span id="cb66-15"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb66-15" aria-hidden="true" tabindex="-1"></a><span class="co"># stack(x)</span></span>
+<span id="cb66-16"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb66-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb66-17"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb66-17" aria-hidden="true" tabindex="-1"></a><span class="do">## library(tidyverse)</span></span>
+<span id="cb66-18"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb66-18" aria-hidden="true" tabindex="-1"></a><span class="do">## gather関数(横型→縦型), spread関数(縦型→横型)</span></span>
+<span id="cb66-19"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb66-19" aria-hidden="true" tabindex="-1"></a>      A     B</span>
+<span id="cb66-20"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb66-20" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span> <span class="fl">2.257</span> <span class="fl">4.065</span></span>
+<span id="cb66-21"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb66-21" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span> <span class="fl">4.273</span> <span class="fl">4.771</span></span>
+<span id="cb66-22"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb66-22" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span> <span class="fl">4.205</span> <span class="fl">2.793</span></span>
+<span id="cb66-23"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb66-23" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span> <span class="fl">3.251</span> <span class="fl">3.003</span></span>
+<span id="cb66-24"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb66-24" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span> <span class="fl">1.534</span> <span class="fl">3.250</span></span>
+<span id="cb66-25"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb66-25" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span> <span class="fl">3.327</span> <span class="fl">3.390</span></span>
+<span id="cb66-26"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb66-26" aria-hidden="true" tabindex="-1"></a><span class="st">'data.frame'</span><span class="sc">:</span>   <span class="dv">40</span> obs. of  <span class="dv">2</span> variables<span class="sc">:</span></span>
+<span id="cb66-27"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb66-27" aria-hidden="true" tabindex="-1"></a> <span class="er">$</span> score<span class="sc">:</span> num  <span class="fl">2.26</span> <span class="fl">4.27</span> <span class="fl">4.21</span> <span class="fl">3.25</span> <span class="fl">1.53</span> ...</span>
+<span id="cb66-28"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb66-28" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> type <span class="sc">:</span> chr  <span class="st">"A"</span> <span class="st">"A"</span> <span class="st">"A"</span> <span class="st">"A"</span> ...</span>
+<span id="cb66-29"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb66-29" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>] <span class="fl">2.257</span> <span class="fl">4.273</span> <span class="fl">4.205</span> <span class="fl">3.251</span> <span class="fl">1.534</span> <span class="fl">3.327</span> <span class="fl">3.596</span> <span class="fl">3.421</span> <span class="fl">2.544</span> <span class="fl">2.110</span> <span class="fl">2.262</span> <span class="fl">2.550</span></span>
+<span id="cb66-30"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb66-30" aria-hidden="true" tabindex="-1"></a>[<span class="dv">13</span>] <span class="fl">2.790</span> <span class="fl">2.033</span> <span class="fl">3.688</span> <span class="fl">3.440</span> <span class="fl">3.797</span> <span class="fl">3.644</span> <span class="fl">2.906</span> <span class="fl">1.230</span> <span class="fl">4.065</span> <span class="fl">4.771</span> <span class="fl">2.793</span> <span class="fl">3.003</span></span>
+<span id="cb66-31"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb66-31" aria-hidden="true" tabindex="-1"></a>[<span class="dv">25</span>] <span class="fl">3.250</span> <span class="fl">3.390</span> <span class="fl">2.834</span> <span class="fl">2.171</span> <span class="fl">4.654</span> <span class="fl">3.051</span> <span class="fl">4.789</span> <span class="fl">4.373</span> <span class="fl">3.325</span> <span class="fl">3.028</span> <span class="fl">4.127</span> <span class="fl">2.796</span></span>
+<span id="cb66-32"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb66-32" aria-hidden="true" tabindex="-1"></a>[<span class="dv">37</span>] <span class="fl">2.015</span> <span class="fl">4.379</span> <span class="fl">3.380</span> <span class="fl">3.793</span></span>
+<span id="cb66-33"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb66-33" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>] <span class="fl">2.257</span> <span class="fl">4.273</span> <span class="fl">4.205</span> <span class="fl">3.251</span> <span class="fl">1.534</span> <span class="fl">3.327</span> <span class="fl">3.596</span> <span class="fl">3.421</span> <span class="fl">2.544</span> <span class="fl">2.110</span> <span class="fl">2.262</span> <span class="fl">2.550</span></span>
+<span id="cb66-34"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb66-34" aria-hidden="true" tabindex="-1"></a>[<span class="dv">13</span>] <span class="fl">2.790</span> <span class="fl">2.033</span> <span class="fl">3.688</span> <span class="fl">3.440</span> <span class="fl">3.797</span> <span class="fl">3.644</span> <span class="fl">2.906</span> <span class="fl">1.230</span> <span class="fl">4.065</span> <span class="fl">4.771</span> <span class="fl">2.793</span> <span class="fl">3.003</span></span>
+<span id="cb66-35"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb66-35" aria-hidden="true" tabindex="-1"></a>[<span class="dv">25</span>] <span class="fl">3.250</span> <span class="fl">3.390</span> <span class="fl">2.834</span> <span class="fl">2.171</span> <span class="fl">4.654</span> <span class="fl">3.051</span> <span class="fl">4.789</span> <span class="fl">4.373</span> <span class="fl">3.325</span> <span class="fl">3.028</span> <span class="fl">4.127</span> <span class="fl">2.796</span></span>
+<span id="cb66-36"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb66-36" aria-hidden="true" tabindex="-1"></a>[<span class="dv">37</span>] <span class="fl">2.015</span> <span class="fl">4.379</span> <span class="fl">3.380</span> <span class="fl">3.793</span></span>
+<span id="cb66-37"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb66-37" aria-hidden="true" tabindex="-1"></a> [<span class="dv">1</span>] <span class="fl">2.257</span> <span class="fl">4.273</span> <span class="fl">4.205</span> <span class="fl">3.251</span> <span class="fl">1.534</span> <span class="fl">3.327</span> <span class="fl">3.596</span> <span class="fl">3.421</span> <span class="fl">2.544</span> <span class="fl">2.110</span> <span class="fl">2.262</span> <span class="fl">2.550</span></span>
+<span id="cb66-38"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb66-38" aria-hidden="true" tabindex="-1"></a>[<span class="dv">13</span>] <span class="fl">2.790</span> <span class="fl">2.033</span> <span class="fl">3.688</span> <span class="fl">3.440</span> <span class="fl">3.797</span> <span class="fl">3.644</span> <span class="fl">2.906</span> <span class="fl">1.230</span> <span class="fl">4.065</span> <span class="fl">4.771</span> <span class="fl">2.793</span> <span class="fl">3.003</span></span>
+<span id="cb66-39"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb66-39" aria-hidden="true" tabindex="-1"></a>[<span class="dv">25</span>] <span class="fl">3.250</span> <span class="fl">3.390</span> <span class="fl">2.834</span> <span class="fl">2.171</span> <span class="fl">4.654</span> <span class="fl">3.051</span> <span class="fl">4.789</span> <span class="fl">4.373</span> <span class="fl">3.325</span> <span class="fl">3.028</span> <span class="fl">4.127</span> <span class="fl">2.796</span></span>
+<span id="cb66-40"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb66-40" aria-hidden="true" tabindex="-1"></a>[<span class="dv">37</span>] <span class="fl">2.015</span> <span class="fl">4.379</span> <span class="fl">3.380</span> <span class="fl">3.793</span></span></code></pre></div>
+<ul>
+<li>1元ANOVAの実行
+<!--- 8/27/22: Build Bookエラー発生:
+Error in model.frame.default(formula = score ~ type) : 
+  variable lengths differ (found for 'type') -->
+</li>
+</ul>
+<div class="sourceCode" id="cb67"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># 1元ANOVA</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/attach.html">attach</a></span><span class="op">(</span><span class="va">xdf</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/oneway.test.html">oneway.test</a></span><span class="op">(</span><span class="va">score</span> <span class="op">~</span> <span class="va">type</span><span class="op">)</span></span>
+<span><span class="co"># デフォルト：等分散を仮定しない</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/oneway.test.html">oneway.test</a></span><span class="op">(</span><span class="va">score</span> <span class="op">~</span> <span class="va">type</span>, var.equal <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
+<span><span class="co"># 等分散を仮定</span></span>
+<span></span>
+<span><span class="co">### 代替アプローチ</span></span>
+<span><span class="va">x.aov</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/aov.html">aov</a></span><span class="op">(</span><span class="va">score</span> <span class="op">~</span> <span class="va">type</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">x.aov</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">res.lm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">score</span> <span class="op">~</span> <span class="va">type</span><span class="op">)</span></span>
+<span><span class="va">x.anova</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="va">res.lm</span><span class="op">)</span></span>
+<span><span class="va">x.anova</span>         <span class="co"># summary()を使わずに出力</span></span>
+<span></span>
+<span><span class="co"># 等分散検定 </span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/var.test.html">var.test</a></span><span class="op">(</span><span class="va">x</span><span class="op">$</span><span class="va">A</span>, <span class="va">x</span><span class="op">$</span><span class="va">B</span><span class="op">)</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># t検定との比較</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">x</span><span class="op">$</span><span class="va">A</span>, <span class="va">x</span><span class="op">$</span><span class="va">B</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/t.test.html">t.test</a></span><span class="op">(</span><span class="va">x</span><span class="op">$</span><span class="va">A</span>, <span class="va">x</span><span class="op">$</span><span class="va">B</span>, var.equal <span class="op">=</span> <span class="cn">T</span><span class="op">)</span></span>
+<span><span class="co">##t.test(x$A, x$B, paired=T)</span></span></code></pre></div>
+</div>
+<div id="データ2-統計学テストデータ" class="section level3" number="4.5.2">
+<h3>
+<span class="header-section-number">4.5.2</span> データ2: 統計学テストデータ<a class="anchor" aria-label="anchor" href="#%E3%83%87%E3%83%BC%E3%82%BF2-%E7%B5%B1%E8%A8%88%E5%AD%A6%E3%83%86%E3%82%B9%E3%83%88%E3%83%87%E3%83%BC%E3%82%BF"><i class="fas fa-link"></i></a>
+</h3>
+<ul>
+<li>year(学年), MF(性別:男性1女性2), AS(文理:文系1その他2理系3), math(数学履修年数), work(勤務年数), stat(統計学経験0-2), MS(経営科学好き嫌い0-3), s4(4級相当得点), s3(3級相当得点), s2(2級相当得点)</li>
+</ul>
+<div class="sourceCode" id="cb68"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">testdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"BS_stattest.csv"</span>, header <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/colnames.html">colnames</a></span><span class="op">(</span><span class="va">testdat</span><span class="op">)</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"year"</span>, <span class="st">"MF"</span>, <span class="st">"AS"</span>, <span class="st">"math"</span>, <span class="st">"work"</span>, <span class="st">"stat"</span>, <span class="st">"MS"</span>, <span class="st">"s4"</span>, <span class="st">"s3"</span>, <span class="st">"s2"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># 総合得点の計算, 列に追加</span></span>
+<span><span class="va">score</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/apply.html">apply</a></span><span class="op">(</span><span class="va">testdat</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"s4"</span>, <span class="st">"s3"</span>, <span class="st">"s2"</span><span class="op">)</span><span class="op">]</span>, <span class="fl">1</span>, <span class="va">sum</span><span class="op">)</span></span>
+<span><span class="va">testdat2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">cbind</a></span><span class="op">(</span><span class="va">testdat</span>, <span class="va">score</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">testdat2</span><span class="op">)</span></span>
+<span><span class="co"># → 得点以外の変数も数値(整数)で入力されている</span></span>
+<span></span>
+<span><span class="co"># 分割表(クロス集計表)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/table.html">table</a></span><span class="op">(</span><span class="va">testdat</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"MF"</span>, <span class="st">"AS"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># 相関係数</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">testdat</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"math"</span>, <span class="st">"s2"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">testdat</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"MS"</span>, <span class="st">"s4"</span>, <span class="st">"s3"</span>, <span class="st">"s2"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">testdat</span><span class="op">[</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"MS"</span>, <span class="st">"math"</span><span class="op">)</span><span class="op">]</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># 箱ひげ図</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/attach.html">attach</a></span><span class="op">(</span><span class="va">testdat2</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span><span class="op">(</span><span class="va">score</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">MF</span><span class="op">)</span><span class="op">)</span>     <span class="co"># 2-level factor</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/boxplot.html">boxplot</a></span><span class="op">(</span><span class="va">score</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">MS</span><span class="op">)</span><span class="op">)</span>     <span class="co"># 4-level factor</span></span></code></pre></div>
+<div class="inline-figure"><img src="BS2022-test_files/figure-html/anova3-1.png" width="75%"></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb69-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-2"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb69-2" aria-hidden="true" tabindex="-1"></a>aaa <span class="ot">&lt;-</span> <span class="fu">table</span>(testdat[, <span class="fu">c</span>(<span class="st">"MF"</span>, <span class="st">"AS"</span>)])</span>
+<span id="cb69-3"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb69-3" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(aaa)</span>
+<span id="cb69-4"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb69-4" aria-hidden="true" tabindex="-1"></a>aaa <span class="ot">&lt;-</span> <span class="fu">table</span>(testdat[, <span class="fu">c</span>(<span class="st">"MS"</span>, <span class="st">"AS"</span>)])</span>
+<span id="cb69-5"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb69-5" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(aaa)         </span>
+<span id="cb69-6"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb69-6" aria-hidden="true" tabindex="-1"></a><span class="st">'data.frame'</span><span class="sc">:</span>   <span class="dv">37</span> obs. of  <span class="dv">11</span> variables<span class="sc">:</span></span>
+<span id="cb69-7"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb69-7" aria-hidden="true" tabindex="-1"></a> <span class="er">$</span> year <span class="sc">:</span> int  <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> ...</span>
+<span id="cb69-8"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb69-8" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> MF   <span class="sc">:</span> int  <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> ...</span>
+<span id="cb69-9"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb69-9" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> AS   <span class="sc">:</span> int  <span class="dv">1</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">3</span> ...</span>
+<span id="cb69-10"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb69-10" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> math <span class="sc">:</span> int  <span class="dv">13</span> <span class="dv">6</span> <span class="dv">8</span> <span class="dv">7</span> <span class="dv">5</span> <span class="dv">5</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">8</span> <span class="dv">10</span> ...</span>
+<span id="cb69-11"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb69-11" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> work <span class="sc">:</span> int  <span class="dv">7</span> <span class="dv">6</span> <span class="dv">4</span> <span class="dv">4</span> <span class="dv">1</span> <span class="dv">5</span> <span class="dv">4</span> <span class="dv">7</span> <span class="dv">0</span> <span class="dv">8</span> ...</span>
+<span id="cb69-12"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb69-12" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> stat <span class="sc">:</span> int  <span class="dv">1</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> ...</span>
+<span id="cb69-13"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb69-13" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> MS   <span class="sc">:</span> int  <span class="dv">2</span> <span class="dv">3</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> ...</span>
+<span id="cb69-14"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb69-14" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> s4   <span class="sc">:</span> int  <span class="dv">7</span> <span class="dv">8</span> <span class="dv">7</span> <span class="dv">7</span> <span class="dv">7</span> <span class="dv">5</span> <span class="dv">5</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">7</span> ...</span>
+<span id="cb69-15"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb69-15" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> s3   <span class="sc">:</span> int  <span class="dv">8</span> <span class="dv">8</span> <span class="dv">6</span> <span class="dv">9</span> <span class="dv">5</span> <span class="dv">8</span> <span class="dv">3</span> <span class="dv">7</span> <span class="dv">6</span> <span class="dv">8</span> ...</span>
+<span id="cb69-16"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb69-16" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> s2   <span class="sc">:</span> int  <span class="dv">7</span> <span class="dv">8</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">4</span> <span class="dv">7</span> <span class="dv">2</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">5</span> ...</span>
+<span id="cb69-17"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb69-17" aria-hidden="true" tabindex="-1"></a> <span class="sc">$</span> score<span class="sc">:</span> int  <span class="dv">22</span> <span class="dv">24</span> <span class="dv">19</span> <span class="dv">23</span> <span class="dv">16</span> <span class="dv">20</span> <span class="dv">10</span> <span class="dv">20</span> <span class="dv">21</span> <span class="dv">20</span> ...</span>
+<span id="cb69-18"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb69-18" aria-hidden="true" tabindex="-1"></a>   AS</span>
+<span id="cb69-19"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb69-19" aria-hidden="true" tabindex="-1"></a>MF   <span class="dv">1</span>  <span class="dv">2</span>  <span class="dv">3</span></span>
+<span id="cb69-20"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb69-20" aria-hidden="true" tabindex="-1"></a>  <span class="dv">1</span> <span class="dv">17</span>  <span class="dv">3</span>  <span class="dv">9</span></span>
+<span id="cb69-21"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb69-21" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span>  <span class="dv">4</span>  <span class="dv">1</span>  <span class="dv">3</span></span>
+<span id="cb69-22"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb69-22" aria-hidden="true" tabindex="-1"></a>           math         s2</span>
+<span id="cb69-23"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb69-23" aria-hidden="true" tabindex="-1"></a>math <span class="fl">1.00000000</span> <span class="fl">0.04241976</span></span>
+<span id="cb69-24"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb69-24" aria-hidden="true" tabindex="-1"></a>s2   <span class="fl">0.04241976</span> <span class="fl">1.00000000</span></span>
+<span id="cb69-25"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb69-25" aria-hidden="true" tabindex="-1"></a>          MS        s4        s3        s2</span>
+<span id="cb69-26"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb69-26" aria-hidden="true" tabindex="-1"></a>MS <span class="fl">1.0000000</span> <span class="fl">0.2592955</span> <span class="fl">0.4922877</span> <span class="fl">0.2600562</span></span>
+<span id="cb69-27"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb69-27" aria-hidden="true" tabindex="-1"></a>s4 <span class="fl">0.2592955</span> <span class="fl">1.0000000</span> <span class="fl">0.1315443</span> <span class="fl">0.1245631</span></span>
+<span id="cb69-28"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb69-28" aria-hidden="true" tabindex="-1"></a>s3 <span class="fl">0.4922877</span> <span class="fl">0.1315443</span> <span class="fl">1.0000000</span> <span class="fl">0.6435060</span></span>
+<span id="cb69-29"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb69-29" aria-hidden="true" tabindex="-1"></a>s2 <span class="fl">0.2600562</span> <span class="fl">0.1245631</span> <span class="fl">0.6435060</span> <span class="fl">1.0000000</span></span>
+<span id="cb69-30"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb69-30" aria-hidden="true" tabindex="-1"></a>            MS      math</span>
+<span id="cb69-31"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb69-31" aria-hidden="true" tabindex="-1"></a>MS   <span class="fl">1.0000000</span> <span class="fl">0.2864297</span></span>
+<span id="cb69-32"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb69-32" aria-hidden="true" tabindex="-1"></a>math <span class="fl">0.2864297</span> <span class="fl">1.0000000</span></span>
+<span id="cb69-33"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb69-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-34"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb69-34" aria-hidden="true" tabindex="-1"></a>    Pearson<span class="st">'s Chi-squared test</span></span>
+<span id="cb69-35"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb69-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-36"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb69-36" aria-hidden="true" tabindex="-1"></a><span class="st">data:  aaa</span></span>
+<span id="cb69-37"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb69-37" aria-hidden="true" tabindex="-1"></a><span class="st">X-squared = 0.18986, df = 2, p-value = 0.9094</span></span>
+<span id="cb69-38"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb69-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-39"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb69-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-40"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb69-40" aria-hidden="true" tabindex="-1"></a><span class="st">    Pearson'</span>s Chi<span class="sc">-</span>squared test</span>
+<span id="cb69-41"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb69-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb69-42"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb69-42" aria-hidden="true" tabindex="-1"></a>data<span class="sc">:</span>  aaa</span>
+<span id="cb69-43"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb69-43" aria-hidden="true" tabindex="-1"></a>X<span class="sc">-</span>squared <span class="ot">=</span> <span class="fl">16.044</span>, df <span class="ot">=</span> <span class="dv">6</span>, p<span class="sc">-</span>value <span class="ot">=</span> <span class="fl">0.01352</span></span></code></pre></div>
+<ul>
+<li>1元ANOVA</li>
+</ul>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1-way ANOVA</span></span>
+<span id="cb70-2"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb70-2" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(<span class="fu">lm</span>(score <span class="sc">~</span> <span class="fu">factor</span>(MS)))</span>
+<span id="cb70-3"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb70-3" aria-hidden="true" tabindex="-1"></a>Analysis of Variance Table</span>
+<span id="cb70-4"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb70-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-5"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb70-5" aria-hidden="true" tabindex="-1"></a>Response<span class="sc">:</span> score</span>
+<span id="cb70-6"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb70-6" aria-hidden="true" tabindex="-1"></a>           Df Sum Sq Mean Sq F value  <span class="fu">Pr</span>(<span class="sc">&gt;</span>F)  </span>
+<span id="cb70-7"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb70-7" aria-hidden="true" tabindex="-1"></a><span class="fu">factor</span>(MS)  <span class="dv">3</span> <span class="fl">108.22</span>  <span class="fl">36.074</span>  <span class="fl">3.2817</span> <span class="fl">0.03293</span> <span class="sc">*</span></span>
+<span id="cb70-8"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb70-8" aria-hidden="true" tabindex="-1"></a>Residuals  <span class="dv">33</span> <span class="fl">362.75</span>  <span class="fl">10.992</span>                  </span>
+<span id="cb70-9"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb70-9" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
+<span id="cb70-10"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb70-10" aria-hidden="true" tabindex="-1"></a>Signif. codes<span class="sc">:</span>  <span class="dv">0</span> <span class="st">'***'</span> <span class="fl">0.001</span> <span class="st">'**'</span> <span class="fl">0.01</span> <span class="st">'*'</span> <span class="fl">0.05</span> <span class="st">'.'</span> <span class="fl">0.1</span> <span class="st">' '</span> <span class="dv">1</span></span></code></pre></div>
+<ul>
+<li>2元ANOVA</li>
+</ul>
+<div class="sourceCode" id="cb71"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">### 2-way ANOVA</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">score</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">MS</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">AS</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="co"># 主効果項のみ(交互作用項なし)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">score</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">AS</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">MS</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>      <span class="co"># 分解順の影響</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/anova.html">anova</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">score</span> <span class="op">~</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">MS</span><span class="op">)</span> <span class="op">*</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">AS</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="co"># 交互作用項有</span></span>
+<span></span>
+<span><span class="co"># 交互作用プロット</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/interaction.plot.html">interaction.plot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">MS</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">MF</span><span class="op">)</span>, <span class="va">score</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="BS2022-test_files/figure-html/anova5-1.png" width="75%"></div>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-2"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(score <span class="sc">~</span> <span class="fu">factor</span>(MS) <span class="sc">*</span> <span class="fu">factor</span>(MF)))</span>
+<span id="cb72-3"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-4"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(score <span class="sc">~</span> <span class="fu">factor</span>(MS) <span class="sc">+</span> <span class="fu">factor</span>(MF)))</span>
+<span id="cb72-5"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-6"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-6" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(score<span class="sc">~</span><span class="fu">factor</span>(MS) <span class="sc">+</span> <span class="fu">factor</span>(MF))</span>
+<span id="cb72-7"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-7" aria-hidden="true" tabindex="-1"></a>Analysis of Variance Table</span>
+<span id="cb72-8"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-9"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-9" aria-hidden="true" tabindex="-1"></a>Response<span class="sc">:</span> score</span>
+<span id="cb72-10"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-10" aria-hidden="true" tabindex="-1"></a>           Df Sum Sq Mean Sq F value  <span class="fu">Pr</span>(<span class="sc">&gt;</span>F)  </span>
+<span id="cb72-11"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-11" aria-hidden="true" tabindex="-1"></a><span class="fu">factor</span>(MS)  <span class="dv">3</span> <span class="fl">108.22</span>  <span class="fl">36.074</span>  <span class="fl">3.3147</span> <span class="fl">0.03267</span> <span class="sc">*</span></span>
+<span id="cb72-12"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-12" aria-hidden="true" tabindex="-1"></a><span class="fu">factor</span>(AS)  <span class="dv">2</span>  <span class="fl">25.38</span>  <span class="fl">12.689</span>  <span class="fl">1.1659</span> <span class="fl">0.32493</span>  </span>
+<span id="cb72-13"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-13" aria-hidden="true" tabindex="-1"></a>Residuals  <span class="dv">31</span> <span class="fl">337.37</span>  <span class="fl">10.883</span>                  </span>
+<span id="cb72-14"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-14" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
+<span id="cb72-15"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-15" aria-hidden="true" tabindex="-1"></a>Signif. codes<span class="sc">:</span>  <span class="dv">0</span> <span class="st">'***'</span> <span class="fl">0.001</span> <span class="st">'**'</span> <span class="fl">0.01</span> <span class="st">'*'</span> <span class="fl">0.05</span> <span class="st">'.'</span> <span class="fl">0.1</span> <span class="st">' '</span> <span class="dv">1</span></span>
+<span id="cb72-16"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-16" aria-hidden="true" tabindex="-1"></a>Analysis of Variance Table</span>
+<span id="cb72-17"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-18"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-18" aria-hidden="true" tabindex="-1"></a>Response<span class="sc">:</span> score</span>
+<span id="cb72-19"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-19" aria-hidden="true" tabindex="-1"></a>           Df Sum Sq Mean Sq F value  <span class="fu">Pr</span>(<span class="sc">&gt;</span>F)  </span>
+<span id="cb72-20"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-20" aria-hidden="true" tabindex="-1"></a><span class="fu">factor</span>(AS)  <span class="dv">2</span>   <span class="fl">3.50</span>   <span class="fl">1.748</span>  <span class="fl">0.1607</span> <span class="fl">0.85229</span>  </span>
+<span id="cb72-21"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-21" aria-hidden="true" tabindex="-1"></a><span class="fu">factor</span>(MS)  <span class="dv">3</span> <span class="fl">130.10</span>  <span class="fl">43.368</span>  <span class="fl">3.9849</span> <span class="fl">0.01642</span> <span class="sc">*</span></span>
+<span id="cb72-22"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-22" aria-hidden="true" tabindex="-1"></a>Residuals  <span class="dv">31</span> <span class="fl">337.37</span>  <span class="fl">10.883</span>                  </span>
+<span id="cb72-23"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-23" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
+<span id="cb72-24"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-24" aria-hidden="true" tabindex="-1"></a>Signif. codes<span class="sc">:</span>  <span class="dv">0</span> <span class="st">'***'</span> <span class="fl">0.001</span> <span class="st">'**'</span> <span class="fl">0.01</span> <span class="st">'*'</span> <span class="fl">0.05</span> <span class="st">'.'</span> <span class="fl">0.1</span> <span class="st">' '</span> <span class="dv">1</span></span>
+<span id="cb72-25"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-25" aria-hidden="true" tabindex="-1"></a>Analysis of Variance Table</span>
+<span id="cb72-26"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-27"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-27" aria-hidden="true" tabindex="-1"></a>Response<span class="sc">:</span> score</span>
+<span id="cb72-28"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-28" aria-hidden="true" tabindex="-1"></a>                      Df Sum Sq Mean Sq F value  <span class="fu">Pr</span>(<span class="sc">&gt;</span>F)  </span>
+<span id="cb72-29"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-29" aria-hidden="true" tabindex="-1"></a><span class="fu">factor</span>(MS)             <span class="dv">3</span> <span class="fl">108.22</span>  <span class="fl">36.074</span>  <span class="fl">3.3063</span> <span class="fl">0.03397</span> <span class="sc">*</span></span>
+<span id="cb72-30"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-30" aria-hidden="true" tabindex="-1"></a><span class="fu">factor</span>(AS)             <span class="dv">2</span>  <span class="fl">25.38</span>  <span class="fl">12.689</span>  <span class="fl">1.1629</span> <span class="fl">0.32672</span>  </span>
+<span id="cb72-31"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-31" aria-hidden="true" tabindex="-1"></a><span class="fu">factor</span>(MS)<span class="sc">:</span><span class="fu">factor</span>(AS)  <span class="dv">2</span>  <span class="fl">20.96</span>  <span class="fl">10.478</span>  <span class="fl">0.9603</span> <span class="fl">0.39460</span>  </span>
+<span id="cb72-32"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-32" aria-hidden="true" tabindex="-1"></a>Residuals             <span class="dv">29</span> <span class="fl">316.42</span>  <span class="fl">10.911</span>                  </span>
+<span id="cb72-33"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-33" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
+<span id="cb72-34"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-34" aria-hidden="true" tabindex="-1"></a>Signif. codes<span class="sc">:</span>  <span class="dv">0</span> <span class="st">'***'</span> <span class="fl">0.001</span> <span class="st">'**'</span> <span class="fl">0.01</span> <span class="st">'*'</span> <span class="fl">0.05</span> <span class="st">'.'</span> <span class="fl">0.1</span> <span class="st">' '</span> <span class="dv">1</span></span>
+<span id="cb72-35"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-35" aria-hidden="true" tabindex="-1"></a>                      Df Sum Sq Mean Sq F value <span class="fu">Pr</span>(<span class="sc">&gt;</span>F)  </span>
+<span id="cb72-36"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-36" aria-hidden="true" tabindex="-1"></a><span class="fu">factor</span>(MS)             <span class="dv">3</span> <span class="fl">108.22</span>   <span class="fl">36.07</span>   <span class="fl">3.727</span> <span class="fl">0.0217</span> <span class="sc">*</span></span>
+<span id="cb72-37"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-37" aria-hidden="true" tabindex="-1"></a><span class="fu">factor</span>(MF)             <span class="dv">1</span>  <span class="fl">39.49</span>   <span class="fl">39.49</span>   <span class="fl">4.080</span> <span class="fl">0.0524</span> .</span>
+<span id="cb72-38"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-38" aria-hidden="true" tabindex="-1"></a><span class="fu">factor</span>(MS)<span class="sc">:</span><span class="fu">factor</span>(MF)  <span class="dv">2</span>  <span class="fl">32.92</span>   <span class="fl">16.46</span>   <span class="fl">1.701</span> <span class="fl">0.1997</span>  </span>
+<span id="cb72-39"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-39" aria-hidden="true" tabindex="-1"></a>Residuals             <span class="dv">30</span> <span class="fl">290.35</span>    <span class="fl">9.68</span>                 </span>
+<span id="cb72-40"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-40" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
+<span id="cb72-41"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-41" aria-hidden="true" tabindex="-1"></a>Signif. codes<span class="sc">:</span>  <span class="dv">0</span> <span class="st">'***'</span> <span class="fl">0.001</span> <span class="st">'**'</span> <span class="fl">0.01</span> <span class="st">'*'</span> <span class="fl">0.05</span> <span class="st">'.'</span> <span class="fl">0.1</span> <span class="st">' '</span> <span class="dv">1</span></span>
+<span id="cb72-42"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-42" aria-hidden="true" tabindex="-1"></a>            Df Sum Sq Mean Sq F value <span class="fu">Pr</span>(<span class="sc">&gt;</span>F)  </span>
+<span id="cb72-43"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-43" aria-hidden="true" tabindex="-1"></a><span class="fu">factor</span>(MS)   <span class="dv">3</span>  <span class="fl">108.2</span>   <span class="fl">36.07</span>   <span class="fl">3.571</span> <span class="fl">0.0246</span> <span class="sc">*</span></span>
+<span id="cb72-44"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-44" aria-hidden="true" tabindex="-1"></a><span class="fu">factor</span>(MF)   <span class="dv">1</span>   <span class="fl">39.5</span>   <span class="fl">39.49</span>   <span class="fl">3.909</span> <span class="fl">0.0567</span> .</span>
+<span id="cb72-45"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-45" aria-hidden="true" tabindex="-1"></a>Residuals   <span class="dv">32</span>  <span class="fl">323.3</span>   <span class="fl">10.10</span>                 </span>
+<span id="cb72-46"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-46" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
+<span id="cb72-47"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-47" aria-hidden="true" tabindex="-1"></a>Signif. codes<span class="sc">:</span>  <span class="dv">0</span> <span class="st">'***'</span> <span class="fl">0.001</span> <span class="st">'**'</span> <span class="fl">0.01</span> <span class="st">'*'</span> <span class="fl">0.05</span> <span class="st">'.'</span> <span class="fl">0.1</span> <span class="st">' '</span> <span class="dv">1</span></span>
+<span id="cb72-48"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-49"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-49" aria-hidden="true" tabindex="-1"></a>Call<span class="sc">:</span></span>
+<span id="cb72-50"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-50" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(<span class="at">formula =</span> score <span class="sc">~</span> <span class="fu">factor</span>(MS) <span class="sc">+</span> <span class="fu">factor</span>(MF))</span>
+<span id="cb72-51"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb72-52"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-52" aria-hidden="true" tabindex="-1"></a>Coefficients<span class="sc">:</span></span>
+<span id="cb72-53"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-53" aria-hidden="true" tabindex="-1"></a>(Intercept)  <span class="fu">factor</span>(MS)<span class="dv">1</span>  <span class="fu">factor</span>(MS)<span class="dv">2</span>  <span class="fu">factor</span>(MS)<span class="dv">3</span>  <span class="fu">factor</span>(MF)<span class="dv">2</span>  </span>
+<span id="cb72-54"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb72-54" aria-hidden="true" tabindex="-1"></a>     <span class="fl">15.552</span>        <span class="fl">2.693</span>        <span class="fl">3.820</span>        <span class="fl">8.448</span>       <span class="sc">-</span><span class="fl">2.604</span>  </span></code></pre></div>
+</div>
+<div id="データ3-経営科学アンケート" class="section level3" number="4.5.3">
+<h3>
+<span class="header-section-number">4.5.3</span> データ3: 経営科学アンケート<a class="anchor" aria-label="anchor" href="#%E3%83%87%E3%83%BC%E3%82%BF3-%E7%B5%8C%E5%96%B6%E7%A7%91%E5%AD%A6%E3%82%A2%E3%83%B3%E3%82%B1%E3%83%BC%E3%83%88"><i class="fas fa-link"></i></a>
+</h3>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co"># グループ(group), 負荷(workload), 難易度(difficulty), 有用性(usefulness), 貢献度(contribution), 数学スキル(Math), エクセルスキル(Excel), 文理(AS), 業務経験(Work), 性別(MF)</span></span>
+<span id="cb73-2"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb73-2" aria-hidden="true" tabindex="-1"></a>testdat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"FB_dist.csv"</span>, <span class="at">header=</span>T)</span>
+<span id="cb73-3"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb73-3" aria-hidden="true" tabindex="-1"></a><span class="fu">attach</span>(testdat)</span>
+<span id="cb73-4"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb73-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-5"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb73-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 実行1</span></span>
+<span id="cb73-6"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb73-6" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(<span class="fu">lm</span>(difficulty <span class="sc">~</span> Math))</span>
+<span id="cb73-7"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb73-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-8"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb73-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 実行2</span></span>
+<span id="cb73-9"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb73-9" aria-hidden="true" tabindex="-1"></a><span class="fu">anova</span>(<span class="fu">lm</span>(difficulty <span class="sc">~</span> <span class="fu">factor</span>(Math)))</span>
+<span id="cb73-10"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb73-10" aria-hidden="true" tabindex="-1"></a>Analysis of Variance Table</span>
+<span id="cb73-11"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb73-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-12"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb73-12" aria-hidden="true" tabindex="-1"></a>Response<span class="sc">:</span> difficulty</span>
+<span id="cb73-13"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb73-13" aria-hidden="true" tabindex="-1"></a>           Df Sum Sq Mean Sq F value   <span class="fu">Pr</span>(<span class="sc">&gt;</span>F)    </span>
+<span id="cb73-14"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb73-14" aria-hidden="true" tabindex="-1"></a>Math        <span class="dv">1</span> <span class="fl">20.023</span> <span class="fl">20.0225</span>  <span class="fl">42.996</span> <span class="fl">1.71e-09</span> <span class="sc">**</span><span class="er">*</span></span>
+<span id="cb73-15"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb73-15" aria-hidden="true" tabindex="-1"></a>Residuals <span class="dv">113</span> <span class="fl">52.622</span>  <span class="fl">0.4657</span>                     </span>
+<span id="cb73-16"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb73-16" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
+<span id="cb73-17"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb73-17" aria-hidden="true" tabindex="-1"></a>Signif. codes<span class="sc">:</span>  <span class="dv">0</span> <span class="st">'***'</span> <span class="fl">0.001</span> <span class="st">'**'</span> <span class="fl">0.01</span> <span class="st">'*'</span> <span class="fl">0.05</span> <span class="st">'.'</span> <span class="fl">0.1</span> <span class="st">' '</span> <span class="dv">1</span></span>
+<span id="cb73-18"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb73-18" aria-hidden="true" tabindex="-1"></a>Analysis of Variance Table</span>
+<span id="cb73-19"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb73-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-20"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb73-20" aria-hidden="true" tabindex="-1"></a>Response<span class="sc">:</span> difficulty</span>
+<span id="cb73-21"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb73-21" aria-hidden="true" tabindex="-1"></a>              Df Sum Sq Mean Sq F value    <span class="fu">Pr</span>(<span class="sc">&gt;</span>F)    </span>
+<span id="cb73-22"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb73-22" aria-hidden="true" tabindex="-1"></a><span class="fu">factor</span>(Math)   <span class="dv">4</span> <span class="fl">21.817</span>  <span class="fl">5.4541</span>  <span class="fl">11.803</span> <span class="fl">5.165e-08</span> <span class="sc">**</span><span class="er">*</span></span>
+<span id="cb73-23"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb73-23" aria-hidden="true" tabindex="-1"></a>Residuals    <span class="dv">110</span> <span class="fl">50.828</span>  <span class="fl">0.4621</span>                      </span>
+<span id="cb73-24"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb73-24" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
+<span id="cb73-25"><a href="%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90.html#cb73-25" aria-hidden="true" tabindex="-1"></a>Signif. codes<span class="sc">:</span>  <span class="dv">0</span> <span class="st">'***'</span> <span class="fl">0.001</span> <span class="st">'**'</span> <span class="fl">0.01</span> <span class="st">'*'</span> <span class="fl">0.05</span> <span class="st">'.'</span> <span class="fl">0.1</span> <span class="st">' '</span> <span class="dv">1</span></span></code></pre></div>
+
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="%E4%BB%AE%E8%AA%AC%E6%A4%9C%E5%AE%9A.html"><span class="header-section-number">3</span> 仮説検定</a></div>
+<div class="empty"></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90"><span class="header-section-number">4</span> 分散分析</a></li>
+<li>
+<a class="nav-link" href="#%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90-%E5%9F%BA%E6%9C%AC%E7%B7%A8"><span class="header-section-number">4.1</span> 分散分析 (基本編)</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90%E3%81%A8%E3%81%AF-%E5%B0%8E%E5%85%A5"><span class="header-section-number">4.1.1</span> 分散分析とは (導入)</a></li>
+<li><a class="nav-link" href="#%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90%E3%81%A8%E3%81%AF-%E8%A7%A3%E8%AA%AC"><span class="header-section-number">4.1.2</span> 分散分析とは (解説)</a></li>
+</ul>
+</li>
+<li><a class="nav-link" href="#%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90-r%E5%AE%9F%E7%BF%92%E7%B7%A8-%E4%BD%9C%E6%A5%AD%E4%B8%AD"><span class="header-section-number">4.2</span> 分散分析 (R実習編) ### 作業中</a></li>
+<li><a class="nav-link" href="#%E3%81%BE%E3%81%A8%E3%82%81-%E7%99%BA%E5%B1%95%E7%9A%84%E5%86%85%E5%AE%B9-%E4%BB%8A%E5%BE%8C%E3%81%AE%E5%AD%A6%E7%BF%92"><span class="header-section-number">4.3</span> まとめ (発展的内容, 今後の学習)</a></li>
+<li><a class="nav-link" href="#%E8%A3%9C%E8%B6%B3"><span class="header-section-number">4.4</span> 補足</a></li>
+<li>
+<a class="nav-link" href="#%E5%88%86%E6%95%A3%E5%88%86%E6%9E%90-%E5%AE%9F%E7%BF%92"><span class="header-section-number">4.5</span> 分散分析 (実習)</a><ul class="nav navbar-nav">
+<li><a class="nav-link" href="#%E3%83%87%E3%83%BC%E3%82%BF1-2%E6%A5%AD%E7%A8%AE%E5%8F%A3%E3%82%B3%E3%83%9F%E3%82%B5%E3%82%A4%E3%83%88%E4%BB%AE%E6%83%B3%E3%83%87%E3%83%BC%E3%82%BF"><span class="header-section-number">4.5.1</span> データ1: 2業種口コミサイト(仮想データ)</a></li>
+<li><a class="nav-link" href="#%E3%83%87%E3%83%BC%E3%82%BF2-%E7%B5%B1%E8%A8%88%E5%AD%A6%E3%83%86%E3%82%B9%E3%83%88%E3%83%87%E3%83%BC%E3%82%BF"><span class="header-section-number">4.5.2</span> データ2: 統計学テストデータ</a></li>
+<li><a class="nav-link" href="#%E3%83%87%E3%83%BC%E3%82%BF3-%E7%B5%8C%E5%96%B6%E7%A7%91%E5%AD%A6%E3%82%A2%E3%83%B3%E3%82%B1%E3%83%BC%E3%83%88"><span class="header-section-number">4.5.3</span> データ3: 経営科学アンケート</a></li>
+</ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+          
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>ビジネス統計</strong>" was written by 林 高樹. It was last built on 2022-09-17.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>
